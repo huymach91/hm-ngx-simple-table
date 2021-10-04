@@ -1,0 +1,67 @@
+<div
+  *ngIf="pages.length"
+  [style]="{ background: background ? background : '' }"
+  class="pagination"
+>
+  <div>
+    {{ (currentPage - 1) * pageSize + 1 }} -
+    {{
+      pageSize * currentPage > totalRecord
+        ? totalRecord
+        : pageSize * currentPage
+    }}
+    of {{ totalRecord }} items
+  </div>
+  <div class="page-size-selector">
+    Show
+    <select
+      id="page-size"
+      class="form-control"
+      [(ngModel)]="pageSize"
+      (change)="onChangePaginator(1)"
+    >
+      <option *ngFor="let pageSize of pageSizeList" [value]="pageSize">
+        {{ pageSize }}
+      </option>
+    </select>
+  </div>
+  <div>
+    <nav class="page-numbers" *ngIf="pages.length > 1">
+      <ul>
+        <li
+          class="page-item"
+          [ngClass]="{ 'active-page': currentPage <= 1 }"
+          (click)="currentPage > 1 ? onChangePaginator(1) : ''"
+        >
+          <span class="page-link">1</span>
+        </li>
+        <li class="page-item disabled" *ngIf="startPage > 1" class="">
+          <span>...</span>
+        </li>
+        <li
+          class="page-item"
+          [ngClass]="{ 'active-page': page === currentPage }"
+          [style.display]="
+            page > startPage && page < endPage ? 'block' : 'none'
+          "
+          *ngFor="let page of pages"
+          (click)="page === currentPage ? '' : onChangePaginator(page)"
+        >
+          <span class="page-link">{{ page }}</span>
+        </li>
+        <li class="page-item disabled" *ngIf="endPage < pages.length" class="">
+          <span>...</span>
+        </li>
+        <li
+          class="page-item"
+          [ngClass]="{ 'active-page': currentPage >= pages.length }"
+          (click)="
+            currentPage < pages.length ? onChangePaginator(pages.length) : ''
+          "
+        >
+          <span class="page-link">{{ pages.length }}</span>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 5px;
+}
+
+ul li.page-item {
+  list-style: none;
+}
+
+.page-numbers {
+  ul {
+    display: flex;
+    column-gap: 5px;
+  }
+  .page-item {
+    list-style: none;
+    padding: 3px 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+  }
+  .page-item:hover {
+    background-color: whitesmoke;
+  }
+  .page-item.active-page {
+    cursor: unset;
+    background-color: whitesmoke;
+  }
+}
