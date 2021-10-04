@@ -1,8 +1,4 @@
-<div
-  *ngIf="pages.length"
-  [style]="{ background: background ? background : '' }"
-  class="pagination"
->
+<div *ngIf="pages.length" class="pagination">
   <div>
     {{ (currentPage - 1) * pageSize + 1 }} -
     {{
