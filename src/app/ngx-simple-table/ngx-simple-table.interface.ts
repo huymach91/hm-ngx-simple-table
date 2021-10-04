@@ -1,17 +1,17 @@
-export interface ISimpleTableColumn {
+export interface INgxSimpleTableColumn {
   prop: string;
   title: string;
 }
 
-export interface ISimpleTableChecked {
+export interface INgxSimpleTableChecked {
   isCheckAll: boolean;
   itemsChecked: Array<any>;
   itemsRemoved: Array<any>;
   indeterminate: boolean;
 }
 
-export interface ISimpleTableConfig {
+export interface INgxSimpleTableConfig {
   tableClass: string;
   virtualScroll: boolean;
-  columns: Array<ISimpleTableColumn>;
+  columns: Array<INgxSimpleTableColumn>;
 }

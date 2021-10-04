@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
-  ISimpleTableChecked,
-  ISimpleTableConfig,
+  INgxSimpleTableChecked,
+  INgxSimpleTableConfig,
 } from './ngx-simple-table.interface';
 
 @Component({
-  selector: 'simple-table',
+  selector: 'ngx-simple-table',
   templateUrl: './simple-table.component.html',
   styleUrls: ['./simple-table.component.scss'],
 })
 export class NgxSimpleTableComponent {
-  @Input() config: ISimpleTableConfig = {
+  @Input() config: INgxSimpleTableConfig = {
     virtualScroll: false,
     tableClass: '',
     columns: [],
@@ -19,7 +19,7 @@ export class NgxSimpleTableComponent {
     this.data = data;
     this.markAllChecked();
   }
-  @Input() tableChecked: ISimpleTableChecked = {
+  @Input() tableChecked: INgxSimpleTableChecked = {
     isCheckAll: false,
     itemsChecked: [],
     itemsRemoved: [],
