@@ -6,8 +6,8 @@ import {
 
 @Component({
   selector: 'ngx-simple-table',
-  templateUrl: './simple-table.component.html',
-  styleUrls: ['./simple-table.component.scss'],
+  templateUrl: './ngx-simple-table.component.html',
+  styleUrls: ['./ngx-simple-table.component.scss'],
 })
 export class NgxSimpleTableComponent {
   @Input() config: INgxSimpleTableConfig = {

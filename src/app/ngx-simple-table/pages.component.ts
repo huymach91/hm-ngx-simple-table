@@ -18,8 +18,6 @@ export class PagesComponent implements OnInit {
     this.totalRecord = totalRecord;
     this.paging();
   }
-
-  @Input('background') background: string;
   @Output('onChangePaginator') _onChangePaginator = new EventEmitter();
 
   public currentPage = 1;
