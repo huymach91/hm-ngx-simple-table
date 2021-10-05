@@ -77,10 +77,10 @@ export class ResizableColumnDirective implements AfterViewInit {
       }
     };
     resizer.onmouseover = () => {
-      resizer.style.setProperty('background-color', '#3eb8ff');
+      this.highlightResizer(resizer);
     };
     resizer.onmouseleave = () => {
-      resizer.style.setProperty('background-color', 'transparent');
+      this.stopHighlightResizer(resizer);
     };
     resizer.ondblclick = (event: any) => {
       this.currentCell = event.target.parentElement;
@@ -110,5 +110,13 @@ export class ResizableColumnDirective implements AfterViewInit {
   private autoHeight() {
     if (!this.currentCell) return;
     this.currentCell.style.setProperty('width', 'auto');
+  }
+
+  private highlightResizer(resizer: HTMLDivElement) {
+    resizer.style.setProperty('background-color', '#3eb8ff');
+  }
+
+  private stopHighlightResizer(resizer: HTMLDivElement) {
+    resizer.style.setProperty('background-color', 'transparent');
   }
 }
