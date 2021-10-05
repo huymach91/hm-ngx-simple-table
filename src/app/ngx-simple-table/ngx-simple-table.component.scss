@@ -1,6 +1,19 @@
+@font-face {
+  font-family: "My Font";
+  src: url("icons/long-arrow-alt-") format("svg");
+}
+
 .simple-table {
   width: 100%;
   border-collapse: collapse;
+  thead tr th {
+    position: relative;
+    .filter {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+    }
+  }
 }
 
 .checkbox-column {
