@@ -2,7 +2,9 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
+  EventEmitter,
   HostListener,
+  Output,
 } from '@angular/core';
 
 @Directive({
@@ -18,6 +20,8 @@ export class ResizableColumnDirective implements AfterViewInit {
   private siblingCell: HTMLTableCellElement;
   private siblingCellWidth: number;
   private isMouseDown: boolean;
+
+  @Output('onChange') onChange = new EventEmitter();
 
   constructor(private element: ElementRef) {
     this.table = this.element.nativeElement;
@@ -123,8 +127,9 @@ export class ResizableColumnDirective implements AfterViewInit {
   }
 
   private emitNewColumnWidth() {
-    this.columns.forEach((column: HTMLElement) => {
-      console.log(column.offsetWidth);
-    });
+    const newWidths = Array.from(this.columns).map(
+      (element: HTMLDivElement) => element.offsetWidth
+    );
+    this.onChange.emit(newWidths);
   }
 }
