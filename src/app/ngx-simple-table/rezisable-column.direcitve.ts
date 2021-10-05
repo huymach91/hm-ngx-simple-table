@@ -55,21 +55,6 @@ export class ResizableColumnDirective implements AfterViewInit {
     });
   }
 
-  // private setDrag(resizer: HTMLDivElement) {
-  //   resizer.addEventListener('mousedown', (mdEvent) => {
-  //     this.isMouseDown = true;
-  //     this.currentResizer = resizer;
-  //     this.currentCell = resizer.parentElement as HTMLTableCellElement;
-  //     this.siblingCell = this.currentCell
-  //       .nextElementSibling as HTMLTableCellElement;
-  //     this.currentPageX = mdEvent.pageX;
-  //     this.currentCellWidth = this.currentCell.offsetWidth;
-  //     if (this.siblingCell) {
-  //       this.siblingCellWidth = this.siblingCell.offsetWidth;
-  //     }
-  //   });
-  // }
-
   private createResizer(): HTMLDivElement {
     const resizer = document.createElement('div');
     resizer.style.setProperty('width', '3px');
@@ -97,7 +82,8 @@ export class ResizableColumnDirective implements AfterViewInit {
     resizer.onmouseleave = () => {
       resizer.style.setProperty('background-color', 'transparent');
     };
-    resizer.ondblclick = () => {
+    resizer.ondblclick = (event: any) => {
+      this.currentCell = event.target.parentElement;
       this.autoHeight();
     };
     return resizer;
@@ -122,7 +108,7 @@ export class ResizableColumnDirective implements AfterViewInit {
   }
 
   private autoHeight() {
-    console.log('dbclick currentCell', this.currentCell);
-    // this.currentCell.style.setProperty('width', 'auto');
+    if (!this.currentCell) return;
+    this.currentCell.style.setProperty('width', 'auto');
   }
 }
