@@ -3,6 +3,11 @@
   justify-content: space-between;
   align-items: center;
   column-gap: 5px;
+  margin: 5px 0;
+  > div:first-child,
+  > div:last-child {
+    width: 30%;
+  }
 }
 
 ul li.page-item {
@@ -12,7 +17,9 @@ ul li.page-item {
 .page-numbers {
   ul {
     display: flex;
+    margin: 0;
     column-gap: 5px;
+    justify-content: flex-end;
   }
   .page-item {
     list-style: none;
