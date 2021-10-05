@@ -51,25 +51,24 @@ export class ResizableColumnDirective implements AfterViewInit {
       if (index === this.columns.length - 1) return;
       column.style.setProperty('position', 'relative');
       const resizer = this.createResizer();
-      this.setDrag(resizer);
       column.appendChild(resizer);
     });
   }
 
-  private setDrag(resizer: HTMLDivElement) {
-    resizer.addEventListener('mousedown', (mdEvent) => {
-      this.isMouseDown = true;
-      this.currentResizer = resizer;
-      this.currentCell = resizer.parentElement as HTMLTableCellElement;
-      this.siblingCell = this.currentCell
-        .nextElementSibling as HTMLTableCellElement;
-      this.currentPageX = mdEvent.pageX;
-      this.currentCellWidth = this.currentCell.offsetWidth;
-      if (this.siblingCell) {
-        this.siblingCellWidth = this.siblingCell.offsetWidth;
-      }
-    });
-  }
+  // private setDrag(resizer: HTMLDivElement) {
+  //   resizer.addEventListener('mousedown', (mdEvent) => {
+  //     this.isMouseDown = true;
+  //     this.currentResizer = resizer;
+  //     this.currentCell = resizer.parentElement as HTMLTableCellElement;
+  //     this.siblingCell = this.currentCell
+  //       .nextElementSibling as HTMLTableCellElement;
+  //     this.currentPageX = mdEvent.pageX;
+  //     this.currentCellWidth = this.currentCell.offsetWidth;
+  //     if (this.siblingCell) {
+  //       this.siblingCellWidth = this.siblingCell.offsetWidth;
+  //     }
+  //   });
+  // }
 
   private createResizer(): HTMLDivElement {
     const resizer = document.createElement('div');
@@ -80,20 +79,32 @@ export class ResizableColumnDirective implements AfterViewInit {
     resizer.style.setProperty('cursor', 'col-resize');
     resizer.style.setProperty('right', '-1px');
     resizer.style.setProperty('height', this.table.offsetHeight + 'px');
+    resizer.onmousedown = (mdEvent) => {
+      this.isMouseDown = true;
+      this.currentResizer = resizer;
+      this.currentCell = resizer.parentElement as HTMLTableCellElement;
+      this.siblingCell = this.currentCell
+        .nextElementSibling as HTMLTableCellElement;
+      this.currentPageX = mdEvent.pageX;
+      this.currentCellWidth = this.currentCell.offsetWidth;
+      if (this.siblingCell) {
+        this.siblingCellWidth = this.siblingCell.offsetWidth;
+      }
+    };
     resizer.onmouseover = () => {
       resizer.style.setProperty('background-color', '#3eb8ff');
     };
     resizer.onmouseleave = () => {
       resizer.style.setProperty('background-color', 'transparent');
     };
+    resizer.ondblclick = () => {
+      this.autoHeight();
+    };
     return resizer;
   }
 
   private resize(event: MouseEvent) {
     if (this.currentCell) {
-      const height =
-        (this.table.querySelector('thead') as HTMLElement).offsetHeight +
-        (this.table.querySelector('tbody') as HTMLElement).offsetHeight;
       this.updateCurrentResizerHeight();
       var diffX = event.pageX - this.currentPageX;
       if (this.siblingCell) {
@@ -108,5 +119,10 @@ export class ResizableColumnDirective implements AfterViewInit {
       'height',
       this.table.offsetHeight + 'px'
     );
+  }
+
+  private autoHeight() {
+    console.log('dbclick currentCell', this.currentCell);
+    // this.currentCell.style.setProperty('width', 'auto');
   }
 }
