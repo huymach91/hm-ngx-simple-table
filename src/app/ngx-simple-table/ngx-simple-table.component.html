@@ -25,9 +25,9 @@
             [(ngModel)]="pageChecked"
           />
         </th>
-        <th *ngFor="let column of config.columns" (click)="onSort(column.prop)">
-          {{ column['title'] }}
-          <span class="sort">
+        <th *ngFor="let column of config.columns">
+          <span (click)="onSort(column.prop)">{{ column['title'] }}</span>
+          <span class="sort" (click)="onSort(column.prop)">
             <span title="asc" *ngIf="sort[column.prop] === SORT_PARAM.ASC"
               >&#8593;</span
             >
