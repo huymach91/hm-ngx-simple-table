@@ -25,11 +25,18 @@
             [(ngModel)]="pageChecked"
           />
         </th>
-        <th *ngFor="let column of config.columns">
+        <th
+          *ngFor="let column of config.columns"
+          (click)="onStartSort(column.prop)"
+        >
           {{ column['title'] }}
-          <span class="sort" (click)="onSort(column.prop)">
-            <i *ngIf="sort[column.prop]" class="icon-arrow-up2"></i>
-            <i *ngIf="!sort[column.prop]" class="icon-arrow-down2"></i>
+          <span class="sort" (click)="onSort($event, column.prop)">
+            <span title="asc" *ngIf="sort[column.prop] === SORT_PARAM.ASC"
+              >&#8593;</span
+            >
+            <span title="desc" *ngIf="sort[column.prop] === SORT_PARAM.DESC"
+              >&#8595;</span
+            >
           </span>
         </th>
       </tr>

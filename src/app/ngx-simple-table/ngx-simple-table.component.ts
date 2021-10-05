@@ -4,6 +4,11 @@ import {
   INgxSimpleTableConfig,
 } from './ngx-simple-table.interface';
 
+enum SORT_PARAM {
+  ASC = 'asc',
+  DESC = 'desc',
+}
+
 @Component({
   selector: 'ngx-simple-table',
   templateUrl: './ngx-simple-table.component.html',
@@ -35,6 +40,7 @@ export class NgxSimpleTableComponent {
     this.pageSize = pageSize;
   }
   @Output('onChangePaginator') _onChangePaginator = new EventEmitter();
+  @Output('onSort') _onSort = new EventEmitter();
 
   public data: Array<any> = [];
   public pageChecked: boolean = false;
@@ -45,6 +51,7 @@ export class NgxSimpleTableComponent {
   public pageSize: number = 10;
 
   public sort = {};
+  public SORT_PARAM = SORT_PARAM;
 
   constructor() {}
 
@@ -139,7 +146,16 @@ export class NgxSimpleTableComponent {
     this.tableChecked.indeterminate = false;
   }
 
-  public onSort(column: string) {
-    this.sort[column] = !this.sort[column];
+  public onStartSort(column: string) {
+    if (this.sort[column]) return;
+    this.sort[column] = SORT_PARAM.ASC;
+  }
+
+  public onSort(event: any, column: string) {
+    event.stopPropagation();
+    this.sort[column] =
+      this.sort[column] === SORT_PARAM.ASC ? SORT_PARAM.DESC : SORT_PARAM.ASC;
+    console.log(this.sort);
+    this._onSort.emit(this.sort);
   }
 }
