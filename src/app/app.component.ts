@@ -52,6 +52,7 @@ export class AppComponent implements OnInit {
     this.appService
       .getData({ ...this.tableChecked, ...this.pagination })
       .subscribe((resp: any) => {
+        console.log(resp);
         this.data = resp.data;
         this.pagination.totalRecord = resp.totalRecord;
       });
