@@ -97,6 +97,7 @@ export class ResizableColumnDirective implements AfterViewInit {
         this.siblingCell.style.width = this.siblingCellWidth - diffX + 'px';
         this.currentCell.style.width = this.currentCellWidth + diffX + 'px';
       }
+      this.emitNewColumnWidth();
     }
   }
 
@@ -110,6 +111,7 @@ export class ResizableColumnDirective implements AfterViewInit {
   private autoHeight() {
     if (!this.currentCell) return;
     this.currentCell.style.setProperty('width', 'auto');
+    this.emitNewColumnWidth();
   }
 
   private highlightResizer(resizer: HTMLDivElement) {
@@ -118,5 +120,11 @@ export class ResizableColumnDirective implements AfterViewInit {
 
   private stopHighlightResizer(resizer: HTMLDivElement) {
     resizer.style.setProperty('background-color', 'transparent');
+  }
+
+  private emitNewColumnWidth() {
+    this.columns.forEach((column: HTMLElement) => {
+      console.log(column.offsetWidth);
+    });
   }
 }
