@@ -138,4 +138,8 @@ export class NgxSimpleTableComponent {
     this.tableChecked.itemsRemoved = [];
     this.tableChecked.indeterminate = false;
   }
+
+  public onSort(column: string) {
+    this.sort[column] = !this.sort[column];
+  }
 }
