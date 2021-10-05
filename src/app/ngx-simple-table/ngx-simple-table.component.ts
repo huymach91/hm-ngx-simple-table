@@ -151,11 +151,13 @@ export class NgxSimpleTableComponent {
     this.sort[column] = SORT_PARAM.ASC;
   }
 
-  public onSort(event: any, column: string) {
-    event.stopPropagation();
+  public onSort(column: string) {
+    if (!this.sort[column]) {
+      this.sort[column] = SORT_PARAM.ASC;
+      return;
+    }
     this.sort[column] =
       this.sort[column] === SORT_PARAM.ASC ? SORT_PARAM.DESC : SORT_PARAM.ASC;
-    console.log(this.sort);
     this._onSort.emit(this.sort);
   }
 }
