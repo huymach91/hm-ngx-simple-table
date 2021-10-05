@@ -36,7 +36,6 @@ export class ResizableColumnDirective implements AfterViewInit {
 
   @HostListener('document:mouseup', ['$event'])
   onMouseUp(event: MouseEvent) {
-    console.log('mouseup');
     if (this.currentResizer) {
       this.currentResizer.style.setProperty('height', '100%');
     }
