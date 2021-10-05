@@ -30,7 +30,6 @@ export class ResizableColumnDirective implements AfterViewInit {
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
     if (!this.isMouseDown || !this.currentResizer) return;
-    console.log('mmove');
     this.resize(event);
   }
 
@@ -76,11 +75,17 @@ export class ResizableColumnDirective implements AfterViewInit {
     const resizer = document.createElement('div');
     resizer.style.setProperty('width', '2px');
     resizer.style.setProperty('position', 'absolute');
-    resizer.style.setProperty('background-color', 'red');
+    resizer.style.setProperty('background-color', 'transparent');
     resizer.style.setProperty('top', '0');
     resizer.style.setProperty('cursor', 'col-resize');
     resizer.style.setProperty('right', '-1px');
-    resizer.style.setProperty('height', '100%');
+    resizer.style.setProperty('height', this.table.offsetHeight + 'px');
+    resizer.onmouseover = () => {
+      resizer.style.setProperty('background-color', '#3eb8ff');
+    };
+    resizer.onmouseleave = () => {
+      resizer.style.setProperty('background-color', 'transparent');
+    };
     return resizer;
   }
 

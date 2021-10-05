@@ -10,7 +10,11 @@
     [totalRecord]="totalRecord"
     (onChangePaginator)="onChangePaginator($event)"
   ></pages>
-  <table class="simple-table {{ config.tableClass }}" border="1">
+  <table
+    resizable-column
+    class="simple-table {{ config.tableClass }}"
+    border="1"
+  >
     <thead *ngIf="config.columns.length">
       <tr>
         <th>
