@@ -1,3 +1,5 @@
+@import 'fonts/styles';
+
 .simple-table {
   width: 100%;
   border-collapse: collapse;
@@ -24,16 +26,4 @@
 
 .bg-whitesmoke {
   background-color: whitesmoke;
-}
-
-.icon-arrow-down {
-  background: url('icons/arrow-down.png');
-  background-repeat: no-repeat;
-  background-size: 32px 32px;
-}
-
-.icon-arrow-up {
-  background: url('icons/arrow-up.png');
-  background-repeat: no-repeat;
-  background-size: 32px 32px;
 }
