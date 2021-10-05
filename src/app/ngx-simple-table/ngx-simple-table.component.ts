@@ -44,6 +44,8 @@ export class NgxSimpleTableComponent {
   public currentPage: number = 1;
   public pageSize: number = 10;
 
+  public sort = {};
+
   constructor() {}
 
   public onCheckAll(checked: boolean) {
