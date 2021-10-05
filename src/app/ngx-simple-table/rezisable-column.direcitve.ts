@@ -36,7 +36,7 @@ export class ResizableColumnDirective implements AfterViewInit {
   @HostListener('document:mouseup', ['$event'])
   onMouseUp(event: MouseEvent) {
     if (this.currentResizer) {
-      this.currentResizer.style.setProperty('height', '100%');
+      this.updateCurrentResizerHeight();
     }
     this.currentCell = null;
     this.siblingCell = null;
@@ -73,7 +73,7 @@ export class ResizableColumnDirective implements AfterViewInit {
 
   private createResizer(): HTMLDivElement {
     const resizer = document.createElement('div');
-    resizer.style.setProperty('width', '2px');
+    resizer.style.setProperty('width', '3px');
     resizer.style.setProperty('position', 'absolute');
     resizer.style.setProperty('background-color', 'transparent');
     resizer.style.setProperty('top', '0');
@@ -94,12 +94,19 @@ export class ResizableColumnDirective implements AfterViewInit {
       const height =
         (this.table.querySelector('thead') as HTMLElement).offsetHeight +
         (this.table.querySelector('tbody') as HTMLElement).offsetHeight;
-      this.currentResizer.style.setProperty('height', height + 'px');
+      this.updateCurrentResizerHeight();
       var diffX = event.pageX - this.currentPageX;
       if (this.siblingCell) {
         this.siblingCell.style.width = this.siblingCellWidth - diffX + 'px';
         this.currentCell.style.width = this.currentCellWidth + diffX + 'px';
       }
     }
+  }
+
+  private updateCurrentResizerHeight() {
+    this.currentResizer.style.setProperty(
+      'height',
+      this.table.offsetHeight + 'px'
+    );
   }
 }
