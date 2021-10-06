@@ -1,15 +1,10 @@
-<div class="flex">
-  <div class="form"></div>
-  <div class="table">
-    <ngx-simple-table
-      [config]="simpleTableConfig"
-      [data]="data"
-      [tableChecked]="tableChecked"
-      [totalRecord]="pagination.totalRecord"
-      [currentPage]="pagination.currentPage"
-      [pageSize]="pagination.pageSize"
-      (onChangePaginator)="onChangePaginator($event)"
-    >
-    </ngx-simple-table>
-  </div>
-</div>
+<ngx-simple-table
+  [config]="simpleTableConfig"
+  [data]="data"
+  [tableChecked]="tableChecked"
+  [totalRecord]="pagination.totalRecord"
+  [currentPage]="pagination.currentPage"
+  [pageSize]="pagination.pageSize"
+  (onChangePaginator)="onChangePaginator($event)"
+>
+</ngx-simple-table>
