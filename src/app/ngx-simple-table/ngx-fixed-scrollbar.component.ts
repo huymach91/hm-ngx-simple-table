@@ -35,14 +35,19 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
   @HostListener('document:scroll', ['$event'])
   public onWindowScroll(event: any) {
     // scrollbar wrapper
-    const scrollbarOffsetTop = this.scrollbarWrapper.offsetTop;
-    const scrollbarRect = this.scrollbarWrapper.getBoundingClientRect();
+    const contentBottomEdge =
+      this.content.offsetTop + this.content.offsetHeight;
+    const contentRect = this.content.getBoundingClientRect();
     // view port
-    const viewPortBottomEgde = scrollbarRect.y + window.innerHeight;
+    const viewPortBottomEgde = contentRect.bottom + window.innerHeight;
+    const viewPortTopEgde = contentRect.top;
+    console.log(viewPortTopEgde, this.content.offsetTop);
     // case 1: view port's bottom edge was greater or equal the offset top of the scrollbar. In other word, bottom edge touches the scrollbar position
-    if (viewPortBottomEgde >= scrollbarOffsetTop) {
+    if (viewPortBottomEgde <= contentBottomEdge || viewPortTopEgde >= 0) {
+      this.stopFixed();
       return;
     }
+    this.startFixed();
     // case 2: user scroll up the window
   }
 
@@ -71,8 +76,14 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
   private startFixed() {
     // content
     const contentOffsetLeft = this.content.offsetLeft;
-    const scrollbarWrapper = this.wrapperRef.nativeElement as HTMLDivElement;
+    this.scrollbarWrapper.style.setProperty('position', 'fixed');
+    this.scrollbarWrapper.style.setProperty('left', contentOffsetLeft + 'px');
+    this.scrollbarWrapper.style.setProperty('bottom', '0');
   }
 
-  private stopFixed() {}
+  private stopFixed() {
+    this.scrollbarWrapper.style.removeProperty('position');
+    this.scrollbarWrapper.style.removeProperty('left');
+    this.scrollbarWrapper.style.removeProperty('bottom');
+  }
 }
