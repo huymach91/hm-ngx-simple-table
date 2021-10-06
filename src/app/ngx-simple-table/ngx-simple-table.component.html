@@ -26,7 +26,9 @@
           />
         </th>
         <th *ngFor="let column of config.columns">
-          <span (click)="onSort(column.prop)">{{ column['title'] }}</span>
+          <div class="column-title" (click)="onSort(column.prop)">
+            {{ column['title'] }}
+          </div>
           <span class="sort" (click)="onSort(column.prop)">
             <span title="asc" *ngIf="sort[column.prop] === SORT_PARAM.ASC"
               >&#8593;</span
