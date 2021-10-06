@@ -4,12 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PagesComponent } from './pages.component';
 import { NgxSimpleTableComponent } from './ngx-simple-table.component';
 import { ResizableColumnDirective } from './rezisable-column.direcitve';
+import { NgxFixedScrollbarComponent } from './ngx-fixed-scrollbar.component';
 
 @NgModule({
   declarations: [
     NgxSimpleTableComponent,
     PagesComponent,
     ResizableColumnDirective,
+    NgxFixedScrollbarComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [NgxSimpleTableComponent],

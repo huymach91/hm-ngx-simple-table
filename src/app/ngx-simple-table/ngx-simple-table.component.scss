@@ -1,5 +1,6 @@
 .simple-table {
-  width: 100%;
+  // width: 100%;
+  width: 1000px;
   border-collapse: collapse;
   thead tr th {
     position: relative;
@@ -33,4 +34,8 @@
   font-weight: bold;
   font-size: 16px;
   padding: 0 5px;
+}
+
+.table-wrapper {
+  overflow: hidden;
 }

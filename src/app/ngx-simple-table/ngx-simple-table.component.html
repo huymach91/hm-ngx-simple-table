@@ -10,55 +10,63 @@
     [totalRecord]="totalRecord"
     (onChangePaginator)="onChangePaginator($event)"
   ></pages>
-  <table
-    resizable-column
-    class="simple-table {{ config.tableClass }}"
-    border="1"
-  >
-    <thead *ngIf="config.columns.length">
-      <tr class="bg-whitesmoke">
-        <th>
-          <input
-            class="check-all-item"
-            type="checkbox"
-            (change)="onCheckAll(pageChecked)"
-            [(ngModel)]="pageChecked"
-          />
-        </th>
-        <th *ngFor="let column of config.columns">
-          <div class="column-title" (click)="onSort(column.prop)">
-            {{ column['title'] }}
-          </div>
-          <span class="sort" (click)="onSort(column.prop)">
-            <span title="asc" *ngIf="sort[column.prop] === SORT_PARAM.ASC"
-              >&#8593;</span
-            >
-            <span title="desc" *ngIf="sort[column.prop] === SORT_PARAM.DESC"
-              >&#8595;</span
-            >
-          </span>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of data">
-        <td class="checkbox-column">
-          <input
-            class="check-item"
-            type="checkbox"
-            (change)="
-              onCheckItem({ id: item.id, checked: $event.target['checked'] })
-            "
-            [checked]="isItemChecked(item.id)"
-          />
-        </td>
+  <ngx-fixed-scrollbar>
+    <ng-container content>
+      <table
+        resizable-column
+        class="simple-table {{ config.tableClass }}"
+        border="1"
+      >
+        <thead *ngIf="config.columns.length">
+          <tr class="bg-whitesmoke">
+            <th>
+              <input
+                class="check-all-item"
+                type="checkbox"
+                (change)="onCheckAll(pageChecked)"
+                [(ngModel)]="pageChecked"
+              />
+            </th>
+            <th *ngFor="let column of config.columns">
+              <div class="column-title" (click)="onSort(column.prop)">
+                {{ column['title'] }}
+              </div>
+              <span class="sort" (click)="onSort(column.prop)">
+                <span title="asc" *ngIf="sort[column.prop] === SORT_PARAM.ASC"
+                  >&#8593;</span
+                >
+                <span title="desc" *ngIf="sort[column.prop] === SORT_PARAM.DESC"
+                  >&#8595;</span
+                >
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data">
+            <td class="checkbox-column">
+              <input
+                class="check-item"
+                type="checkbox"
+                (change)="
+                  onCheckItem({
+                    id: item.id,
+                    checked: $event.target['checked']
+                  })
+                "
+                [checked]="isItemChecked(item.id)"
+              />
+            </td>
 
-        <ng-container *ngFor="let column of config.columns">
-          <td>{{ item[column.prop] }}</td>
-        </ng-container>
-      </tr>
-    </tbody>
-  </table>
+            <ng-container *ngFor="let column of config.columns">
+              <td>{{ item[column.prop] }}</td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </ngx-fixed-scrollbar>
+
   <pages
     [currentPage]="currentPage"
     [pageSize]="pageSize"
