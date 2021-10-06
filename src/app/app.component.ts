@@ -45,7 +45,9 @@ export class AppComponent implements OnInit {
   constructor(private appService: AppService) {}
 
   ngOnInit() {
-    this.search();
+    setTimeout(() => {
+      this.search();
+    }, 1000);
   }
 
   public search() {
