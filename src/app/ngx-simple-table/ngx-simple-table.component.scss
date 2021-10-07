@@ -35,10 +35,17 @@
   padding: 0 5px;
 }
 
-.fixed-header {
-  display: flex;
+.fixed-header-wrapper {
+  display: none;
   position: fixed;
   top: 0;
+  z-index: 3;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.fixed-header-inner {
+  display: flex;
 }
 
 .simple-table {

@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   HostListener,
   Input,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 
@@ -19,6 +21,8 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
   @ViewChild('innerRef') innerRef: ElementRef;
 
   @Input('fixed') fixed: boolean;
+
+  @Output('onScroll') onScroll = new EventEmitter();
 
   private content: HTMLDivElement;
   private scrollbarWrapper: HTMLDivElement;
@@ -40,7 +44,6 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
     const contentRect = this.content.getBoundingClientRect();
     // view port
     const viewPortBottomEgde = window.scrollY + window.innerHeight;
-    const viewPortTopEgde = contentRect.top;
     // case 1: viewport's top edge is scrolled over element's top edge
     if (contentRect.y > 0) {
       this.stopFixed();
@@ -69,6 +72,7 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
     this.scrollbarWrapper.onscroll = (event: any) => {
       const scrollLeft = this.scrollbarWrapper.scrollLeft;
       this.content.scrollLeft = scrollLeft;
+      this.onScroll.emit(scrollLeft);
     };
   }
 

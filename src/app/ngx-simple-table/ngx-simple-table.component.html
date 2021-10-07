@@ -10,13 +10,23 @@
     [totalRecord]="totalRecord"
     (onChangePaginator)="onChangePaginator($event)"
   ></pages>
-  <ngx-fixed-scrollbar>
-    <ng-container content>
-      <div class="fixed-header" #fixedHeaderWrapperRef>
-        <div #fixedColumnHeaderRef *ngFor="let column of config.columns">
-          {{ column['title'] }}
-        </div>
+  <div class="fixed-header-wrapper" #fixedHeaderWrapperRef>
+    <div class="fixed-header-inner bg-whitesmoke" #fixedHeaderInnerRef>
+      <div class="chb" #fixedColumnHeaderRef>
+        <input
+          class="check-all-item"
+          type="checkbox"
+          (change)="onCheckAll(pageChecked)"
+          [(ngModel)]="pageChecked"
+        />
       </div>
+      <div #fixedColumnHeaderRef *ngFor="let column of config.columns">
+        {{ column['title'] }}
+      </div>
+    </div>
+  </div>
+  <ngx-fixed-scrollbar (onScroll)="onScrollX($event)">
+    <ng-container content>
       <table
         #tableRef
         resizable-column

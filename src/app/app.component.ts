@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
   };
   public data = [];
   public pagination = {
-    pageSize: 10,
+    pageSize: 100,
     currentPage: 1,
     totalRecord: 0,
   };

@@ -8,7 +8,9 @@ import {
   Output,
   QueryList,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
+import { NgxFixedScrollbarComponent } from './ngx-fixed-scrollbar.component';
 import {
   INgxSimpleTableChecked,
   INgxSimpleTableConfig,
@@ -63,11 +65,12 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   public sort = {};
   public SORT_PARAM = SORT_PARAM;
 
-  @ViewChild('columnRef') columnRef: QueryList<ElementRef>;
+  @ViewChildren('columnRef') columnRef: QueryList<ElementRef>;
   @ViewChild('fixedHeaderWrapperRef') fixedHeaderWrapperRef: ElementRef;
-  @ViewChild('fixedColumnHeaderRef')
+  @ViewChildren('fixedColumnHeaderRef')
   fixedColumnHeaderRef: QueryList<ElementRef>;
   @ViewChild('tableRef') tableRef: ElementRef;
+  @ViewChild('fixedHeaderInnerRef') fixedHeaderInnerRef: ElementRef;
 
   constructor() {}
 
@@ -81,11 +84,14 @@ export class NgxSimpleTableComponent implements AfterViewInit {
       tableElement.offsetTop + tableElement.offsetHeight;
     const tableRect = tableElement.getBoundingClientRect();
     // view port
-    const viewPortBottomEgde = tableRect.bottom + window.innerHeight;
-    const viewPortTopEgde = tableRect.top;
-    // console.log(1, viewPortBottomEgde, contentBottomEdge);
-    // case 1: view port's bottom edge was greater or equal the offset top of the scrollbar. In other word, bottom edge touches the scrollbar position
-    if (viewPortBottomEgde <= contentBottomEdge || viewPortTopEgde >= 0) {
+    const viewPortBottomEgde = window.scrollY + window.innerHeight;
+    // case 1: viewport's top edge is scrolled over element's top edge
+    if (tableRect.y > 0) {
+      this.stopFixedHeader();
+      return;
+    }
+    // case 2: viewport's bottom edge touched element's bottom edge
+    if (viewPortBottomEgde >= contentBottomEdge) {
       this.stopFixedHeader();
       return;
     }
@@ -199,31 +205,56 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   }
 
   public startFixedHeader() {
-    // show fixed header
-    this.setStateFixedHeader(true);
-    // const columnElements = this.columnRef.map((c) => c.nativeElement);
-    // columnElements.forEach((columnElement: HTMLElement) => {
-    //   console.log('columnElement', columnElement.offsetWidth);
-    // });
+    this.visibleFixedHeader(true);
+    this.fitSizeFixedHeader();
   }
 
   public stopFixedHeader() {
-    // hide fixed header
-    this.setStateFixedHeader(false);
-    // const columnElements = this.columnRef.map((c) => c.nativeElement);
-    // columnElements.forEach((columnElement: HTMLElement) => {
-    //   console.log('columnElement', columnElement.offsetWidth);
-    // });
+    this.visibleFixedHeader(false);
   }
 
-  public setStateFixedHeader(show: boolean) {
+  public visibleFixedHeader(show: boolean) {
     const fixedHeaderWrapper = this.fixedHeaderWrapperRef
       .nativeElement as HTMLDivElement;
+    if (!fixedHeaderWrapper) return;
     fixedHeaderWrapper.style.setProperty('display', show ? 'flex' : 'none');
   }
 
-  public styleFixedHeader() {
+  public fitSizeFixedHeader() {
+    const tableElement = this.tableRef.nativeElement as HTMLDivElement;
+    const fixedHeaderInner = this.fixedHeaderInnerRef
+      .nativeElement as HTMLDivElement;
+    fixedHeaderInner.style.setProperty(
+      'width',
+      tableElement.offsetWidth + 'px'
+    );
+    const columnElements = this.columnRef.map((c) => c.nativeElement);
+    columnElements.forEach((columnElement: HTMLElement, index: number) => {
+      const columnComputedStyle = window.getComputedStyle(columnElement);
+      const fixedHeaderColumnRef = this.fixedColumnHeaderRef.toArray()[index];
+      const fixedHeaderColumn =
+        fixedHeaderColumnRef.nativeElement as HTMLDivElement;
+      fixedHeaderColumn.style.setProperty('width', columnComputedStyle.width);
+      fixedHeaderColumn.style.setProperty('height', columnComputedStyle.height);
+      fixedHeaderColumn.style.setProperty('border', columnComputedStyle.border);
+      fixedHeaderColumn.style.setProperty(
+        'fontWeight',
+        columnComputedStyle.fontWeight
+      );
+      fixedHeaderColumn.style.setProperty(
+        'textAlign',
+        columnComputedStyle.textAlign
+      );
+      fixedHeaderColumn.style.setProperty(
+        'padding',
+        columnComputedStyle.padding
+      );
+    });
+  }
+
+  public onScrollX(scrollLeft: number) {
     const fixedHeaderWrapper = this.fixedHeaderWrapperRef
       .nativeElement as HTMLDivElement;
+    fixedHeaderWrapper.scrollLeft = scrollLeft;
   }
 }
