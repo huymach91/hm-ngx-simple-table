@@ -1,6 +1,5 @@
 .simple-table {
-  // width: 100%;
-  width: 1000px;
+  min-width: 996px;
   border-collapse: collapse;
   thead tr th {
     position: relative;
@@ -36,6 +35,10 @@
   padding: 0 5px;
 }
 
-.table-wrapper {
-  overflow: hidden;
+.fixed-header {
+  display: flex;
+}
+
+.simple-table {
+  width: 100%;
 }

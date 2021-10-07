@@ -12,14 +12,20 @@
   ></pages>
   <ngx-fixed-scrollbar>
     <ng-container content>
+      <div class="fixed-header">
+        <div #fixedColumnHeader *ngFor="let column of config.columns">
+          {{ column['title'] }}
+        </div>
+      </div>
       <table
+        #tableRef
         resizable-column
         class="simple-table {{ config.tableClass }}"
         border="1"
       >
         <thead *ngIf="config.columns.length">
           <tr class="bg-whitesmoke">
-            <th>
+            <th #columnRef>
               <input
                 class="check-all-item"
                 type="checkbox"
@@ -27,7 +33,7 @@
                 [(ngModel)]="pageChecked"
               />
             </th>
-            <th *ngFor="let column of config.columns">
+            <th #columnRef *ngFor="let column of config.columns">
               <div class="column-title" (click)="onSort(column.prop)">
                 {{ column['title'] }}
               </div>

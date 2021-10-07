@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  QueryList,
+  ViewChild,
+} from '@angular/core';
 import {
   INgxSimpleTableChecked,
   INgxSimpleTableConfig,
@@ -53,7 +62,14 @@ export class NgxSimpleTableComponent {
   public sort = {};
   public SORT_PARAM = SORT_PARAM;
 
+  @ViewChild('columnRef') columnRef: QueryList<ElementRef>;
+
   constructor() {}
+
+  @HostListener('document:scroll', ['$event'])
+  public onWindowScroll(event: any) {
+    console.log('scroll 1');
+  }
 
   public onCheckAll(checked: boolean) {
     // check all of a page
