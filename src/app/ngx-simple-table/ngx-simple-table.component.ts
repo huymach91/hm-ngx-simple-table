@@ -84,15 +84,14 @@ export class NgxSimpleTableComponent implements AfterViewInit {
     const contentBottomEdge =
       tableElement.offsetTop + tableElement.offsetHeight;
     const tableRect = tableElement.getBoundingClientRect();
-    // view port
-    const viewPortBottomEgde = window.scrollY + window.innerHeight;
     // case 1: viewport's top edge is scrolled over element's top edge
     if (tableRect.y > 0) {
       this.stopFixedHeader();
       return;
     }
     // case 2: viewport's bottom edge touched element's bottom edge
-    if (viewPortBottomEgde >= contentBottomEdge) {
+    // case 2: viewport's bottom edge touched element's bottom edge
+    if (window.scrollY >= contentBottomEdge) {
       this.stopFixedHeader();
       return;
     }
