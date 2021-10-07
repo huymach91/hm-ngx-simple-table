@@ -32,8 +32,8 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
     this.init();
   }
 
-  @HostListener('document:scroll', ['$event'])
-  public onWindowScroll(event: any) {
+  @HostListener('document:scroll', [])
+  public onWindowScroll() {
     // scrollbar wrapper
     const contentBottomEdge =
       this.content.offsetTop + this.content.offsetHeight;
@@ -41,8 +41,6 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
     // view port
     const viewPortBottomEgde = contentRect.bottom + window.innerHeight;
     const viewPortTopEgde = contentRect.top;
-    console.log(1, viewPortBottomEgde, contentBottomEdge);
-    console.log(2, viewPortTopEgde);
     // case 1: view port's bottom edge was greater or equal the offset top of the scrollbar. In other word, bottom edge touches the scrollbar position
     if (viewPortBottomEgde <= contentBottomEdge || viewPortTopEgde >= 0) {
       this.stopFixed();
@@ -50,6 +48,11 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
     }
     this.startFixed();
     // case 2: user scroll up the window
+  }
+
+  @HostListener('window:resize', [])
+  public onWindowResize() {
+    this.onWindowScroll();
   }
 
   public init() {
