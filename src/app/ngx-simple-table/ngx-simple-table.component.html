@@ -12,8 +12,8 @@
   ></pages>
   <ngx-fixed-scrollbar>
     <ng-container content>
-      <div class="fixed-header">
-        <div #fixedColumnHeader *ngFor="let column of config.columns">
+      <div class="fixed-header" #fixedHeaderWrapperRef>
+        <div #fixedColumnHeaderRef *ngFor="let column of config.columns">
           {{ column['title'] }}
         </div>
       </div>

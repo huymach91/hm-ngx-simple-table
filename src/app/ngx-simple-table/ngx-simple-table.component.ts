@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -23,7 +24,7 @@ enum SORT_PARAM {
   templateUrl: './ngx-simple-table.component.html',
   styleUrls: ['./ngx-simple-table.component.scss'],
 })
-export class NgxSimpleTableComponent {
+export class NgxSimpleTableComponent implements AfterViewInit {
   @Input() config: INgxSimpleTableConfig = {
     virtualScroll: false,
     tableClass: '',
@@ -63,12 +64,32 @@ export class NgxSimpleTableComponent {
   public SORT_PARAM = SORT_PARAM;
 
   @ViewChild('columnRef') columnRef: QueryList<ElementRef>;
+  @ViewChild('fixedHeaderWrapperRef') fixedHeaderWrapperRef: ElementRef;
+  @ViewChild('fixedColumnHeaderRef')
+  fixedColumnHeaderRef: QueryList<ElementRef>;
+  @ViewChild('tableRef') tableRef: ElementRef;
 
   constructor() {}
 
+  ngAfterViewInit() {}
+
   @HostListener('document:scroll', ['$event'])
   public onWindowScroll(event: any) {
-    console.log('scroll 1');
+    const tableElement = this.tableRef.nativeElement as HTMLTableElement;
+    // scrollbar wrapper
+    const contentBottomEdge =
+      tableElement.offsetTop + tableElement.offsetHeight;
+    const tableRect = tableElement.getBoundingClientRect();
+    // view port
+    const viewPortBottomEgde = tableRect.bottom + window.innerHeight;
+    const viewPortTopEgde = tableRect.top;
+    // console.log(1, viewPortBottomEgde, contentBottomEdge);
+    // case 1: view port's bottom edge was greater or equal the offset top of the scrollbar. In other word, bottom edge touches the scrollbar position
+    if (viewPortBottomEgde <= contentBottomEdge || viewPortTopEgde >= 0) {
+      this.stopFixedHeader();
+      return;
+    }
+    this.startFixedHeader();
   }
 
   public onCheckAll(checked: boolean) {
@@ -175,5 +196,34 @@ export class NgxSimpleTableComponent {
     this.sort[column] =
       this.sort[column] === SORT_PARAM.ASC ? SORT_PARAM.DESC : SORT_PARAM.ASC;
     this._onSort.emit(this.sort);
+  }
+
+  public startFixedHeader() {
+    // show fixed header
+    this.setStateFixedHeader(true);
+    // const columnElements = this.columnRef.map((c) => c.nativeElement);
+    // columnElements.forEach((columnElement: HTMLElement) => {
+    //   console.log('columnElement', columnElement.offsetWidth);
+    // });
+  }
+
+  public stopFixedHeader() {
+    // hide fixed header
+    this.setStateFixedHeader(false);
+    // const columnElements = this.columnRef.map((c) => c.nativeElement);
+    // columnElements.forEach((columnElement: HTMLElement) => {
+    //   console.log('columnElement', columnElement.offsetWidth);
+    // });
+  }
+
+  public setStateFixedHeader(show: boolean) {
+    const fixedHeaderWrapper = this.fixedHeaderWrapperRef
+      .nativeElement as HTMLDivElement;
+    fixedHeaderWrapper.style.setProperty('display', show ? 'flex' : 'none');
+  }
+
+  public styleFixedHeader() {
+    const fixedHeaderWrapper = this.fixedHeaderWrapperRef
+      .nativeElement as HTMLDivElement;
   }
 }

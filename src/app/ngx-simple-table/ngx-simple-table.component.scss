@@ -37,6 +37,8 @@
 
 .fixed-header {
   display: flex;
+  position: fixed;
+  top: 0;
 }
 
 .simple-table {

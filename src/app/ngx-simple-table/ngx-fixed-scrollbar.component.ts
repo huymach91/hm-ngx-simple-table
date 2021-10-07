@@ -35,45 +35,52 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
   @HostListener('document:scroll', [])
   public onWindowScroll() {
     // scrollbar wrapper
-    const contentBottomEdge =
-      this.content.offsetTop + this.content.offsetHeight;
+    const contentTopEdge = this.content.offsetTop;
+    const contentBottomEdge = contentTopEdge + this.content.offsetHeight;
     const contentRect = this.content.getBoundingClientRect();
     // view port
-    const viewPortBottomEgde = contentRect.bottom + window.innerHeight;
+    const viewPortBottomEgde = window.scrollY + window.innerHeight;
     const viewPortTopEgde = contentRect.top;
-    // case 1: view port's bottom edge was greater or equal the offset top of the scrollbar. In other word, bottom edge touches the scrollbar position
-    if (viewPortBottomEgde <= contentBottomEdge || viewPortTopEgde >= 0) {
+    // case 1: viewport's top edge is scrolled over element's top edge
+    if (contentRect.y > 0) {
+      this.stopFixed();
+      return;
+    }
+    // case 2: viewport's bottom edge touched element's bottom edge
+    if (viewPortBottomEgde >= contentBottomEdge) {
       this.stopFixed();
       return;
     }
     this.startFixed();
-    // case 2: user scroll up the window
   }
 
   @HostListener('window:resize', [])
   public onWindowResize() {
-    this.onWindowScroll();
+    this.updateScrollBarWidth();
   }
 
   public init() {
-    // content
     this.content = this.contentRef.nativeElement as HTMLDivElement;
-    const contentWrapperWidth = this.content.offsetWidth;
-    const contentWidth = this.content.querySelector('table').offsetWidth;
-
-    //wrapper scrollbar
     this.scrollbarWrapper = this.wrapperRef.nativeElement as HTMLDivElement;
-    this.scrollbarWrapper.style.setProperty(
-      'width',
-      contentWrapperWidth + 'px'
-    );
+    this.scrollbarInner = this.innerRef.nativeElement as HTMLDivElement;
+    // create size
+    this.updateScrollBarWidth();
+    // handle scroll
     this.scrollbarWrapper.onscroll = (event: any) => {
       const scrollLeft = this.scrollbarWrapper.scrollLeft;
       this.content.scrollLeft = scrollLeft;
     };
+  }
 
+  private updateScrollBarWidth() {
+    const contentWrapperWidth = this.content.offsetWidth;
+    const contentWidth = this.content.querySelector('table').offsetWidth;
+    //wrapper scrollbar
+    this.scrollbarWrapper.style.setProperty(
+      'width',
+      contentWrapperWidth + 'px'
+    );
     // inner scrollbar
-    this.scrollbarInner = this.innerRef.nativeElement as HTMLDivElement;
     this.scrollbarInner.style.setProperty('width', contentWidth + 'px');
   }
 
