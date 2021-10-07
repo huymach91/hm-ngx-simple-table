@@ -71,6 +71,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   fixedColumnHeaderRef: QueryList<ElementRef>;
   @ViewChild('tableRef') tableRef: ElementRef;
   @ViewChild('fixedHeaderInnerRef') fixedHeaderInnerRef: ElementRef;
+  @ViewChild('ngxFixedScrollbar') ngxFixedScrollbar: NgxFixedScrollbarComponent;
 
   constructor() {}
 
@@ -221,6 +222,10 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   }
 
   public fitSizeFixedHeader() {
+    const contentWidth =
+      this.ngxFixedScrollbar.contentRef.nativeElement.offsetWidth;
+    const fixedHeaderWrapper = this.fixedHeaderWrapperRef
+      .nativeElement as HTMLDivElement;
     const tableElement = this.tableRef.nativeElement as HTMLDivElement;
     const fixedHeaderInner = this.fixedHeaderInnerRef
       .nativeElement as HTMLDivElement;
@@ -228,27 +233,46 @@ export class NgxSimpleTableComponent implements AfterViewInit {
       'width',
       tableElement.offsetWidth + 'px'
     );
+    fixedHeaderWrapper.style.setProperty('width', contentWidth + 'px');
     const columnElements = this.columnRef.map((c) => c.nativeElement);
     columnElements.forEach((columnElement: HTMLElement, index: number) => {
       const columnComputedStyle = window.getComputedStyle(columnElement);
       const fixedHeaderColumnRef = this.fixedColumnHeaderRef.toArray()[index];
       const fixedHeaderColumn =
         fixedHeaderColumnRef.nativeElement as HTMLDivElement;
+      console.log(columnComputedStyle.borderLeft);
       fixedHeaderColumn.style.setProperty('width', columnComputedStyle.width);
       fixedHeaderColumn.style.setProperty('height', columnComputedStyle.height);
-      fixedHeaderColumn.style.setProperty('border', columnComputedStyle.border);
       fixedHeaderColumn.style.setProperty(
-        'fontWeight',
+        'border-left',
+        columnComputedStyle.borderLeft
+      );
+      fixedHeaderColumn.style.setProperty(
+        'border-top',
+        columnComputedStyle.borderTop
+      );
+      fixedHeaderColumn.style.setProperty(
+        'border-bottom',
+        columnComputedStyle.borderBottom
+      );
+      fixedHeaderColumn.style.setProperty(
+        'font-weight',
         columnComputedStyle.fontWeight
       );
       fixedHeaderColumn.style.setProperty(
-        'textAlign',
+        'text-align',
         columnComputedStyle.textAlign
       );
       fixedHeaderColumn.style.setProperty(
         'padding',
         columnComputedStyle.padding
       );
+      if (index === columnElements.length - 1) {
+        fixedHeaderColumn.style.setProperty(
+          'border-right',
+          columnComputedStyle.borderRight
+        );
+      }
     });
   }
 
