@@ -62,7 +62,10 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   public currentPage: number = 1;
   public pageSize: number = 10;
 
-  public sort = {};
+  public sort = {
+    key: '',
+    descending: false,
+  };
   public SORT_PARAM = SORT_PARAM;
 
   @ViewChildren('columnRef') columnRef: QueryList<ElementRef>;
@@ -195,12 +198,12 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   }
 
   public onSort(column: string) {
-    if (!this.sort[column]) {
-      this.sort[column] = SORT_PARAM.ASC;
+    this.sort.key = column;
+    if (!this.sort.key) {
+      this.sort.descending = false;
       return;
     }
-    this.sort[column] =
-      this.sort[column] === SORT_PARAM.ASC ? SORT_PARAM.DESC : SORT_PARAM.ASC;
+    this.sort.descending = !this.sort.descending;
     this._onSort.emit(this.sort);
   }
 
@@ -239,7 +242,6 @@ export class NgxSimpleTableComponent implements AfterViewInit {
       const fixedHeaderColumnRef = this.fixedColumnHeaderRef.toArray()[index];
       const fixedHeaderColumn =
         fixedHeaderColumnRef.nativeElement as HTMLDivElement;
-      console.log(columnComputedStyle.borderLeft);
       fixedHeaderColumn.style.setProperty('width', columnComputedStyle.width);
       fixedHeaderColumn.style.setProperty('height', columnComputedStyle.height);
       fixedHeaderColumn.style.setProperty(

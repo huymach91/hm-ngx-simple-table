@@ -20,8 +20,21 @@
           [(ngModel)]="pageChecked"
         />
       </div>
-      <div #fixedColumnHeaderRef *ngFor="let column of config.columns">
-        {{ column['title'] }}
+      <div
+        class="fixed-header-column"
+        #fixedColumnHeaderRef
+        *ngFor="let column of config.columns"
+        (click)="onSort(column.prop)"
+      >
+        <div class="column-title">{{ column['title'] }}</div>
+        <span class="sort">
+          <span title="asc" *ngIf="sort.key === column.prop && !sort.descending"
+            >&#8593;</span
+          >
+          <span title="desc" *ngIf="sort.key === column.prop && sort.descending"
+            >&#8595;</span
+          >
+        </span>
       </div>
     </div>
   </div>
@@ -48,10 +61,14 @@
                 {{ column['title'] }}
               </div>
               <span class="sort" (click)="onSort(column.prop)">
-                <span title="asc" *ngIf="sort[column.prop] === SORT_PARAM.ASC"
+                <span
+                  title="asc"
+                  *ngIf="sort.key === column.prop && !sort.descending"
                   >&#8593;</span
                 >
-                <span title="desc" *ngIf="sort[column.prop] === SORT_PARAM.DESC"
+                <span
+                  title="desc"
+                  *ngIf="sort.key === column.prop && sort.descending"
                   >&#8595;</span
                 >
               </span>
