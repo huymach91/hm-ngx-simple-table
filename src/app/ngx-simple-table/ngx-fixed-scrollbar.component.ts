@@ -45,7 +45,7 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
     // view port
     const viewPortBottomEgde = window.scrollY + window.innerHeight;
     // case 1: viewport's top edge is scrolled over element's top edge
-    if (contentRect.y > 0) {
+    if (contentRect.y > 200) {
       this.stopFixed();
       return;
     }
