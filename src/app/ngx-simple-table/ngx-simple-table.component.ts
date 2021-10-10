@@ -48,7 +48,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   }
   @Output('onChangePaginator') _onChangePaginator = new EventEmitter();
   @Output('onSort') _onSort = new EventEmitter();
-  @Output('onSort') _onChecked = new EventEmitter();
+  @Output('onChecked') _onChecked = new EventEmitter();
 
   public data: Array<any> = [];
   public pageChecked: boolean = false;

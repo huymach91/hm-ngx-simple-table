@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
     this.search();
   }
 
-  public onChecked(tableChecked: INgxSimpleTableChecked) {
+  public onChecked(tableChecked: any) {
     this.tableChecked = tableChecked;
   }
 }
