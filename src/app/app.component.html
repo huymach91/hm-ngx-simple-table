@@ -1,9 +1,10 @@
 <h3>Simple Usage</h3>
 <p>
-  The table has basic features: pagination, check item, check all items in a
+  The table has basic features as pagination, check item, check all items in a
   page, check all items in all pages, fixed header, fixed scrollbar, resizable
   columns
 </p>
+
 <ngx-simple-table
   [config]="simpleTableConfig"
   [data]="data"
@@ -14,4 +15,9 @@
   (onChangePaginator)="onChangePaginator($event)"
 >
 </ngx-simple-table>
+<div>is all items checked: {{ isAllItemsChecked }}</div>
+<div>
+  model:
+  <pre>{{ tableChecked | json }}</pre>
+</div>
 <div class="margin"></div>
