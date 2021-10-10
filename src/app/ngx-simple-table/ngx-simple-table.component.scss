@@ -80,8 +80,44 @@
 
 .column-selector {
   font-size: 20px;
+  position: relative;
+  span {
+    cursor: pointer;
+  }
+  .column-selector-dropdown-menu {
+    font-size: 12px;
+    position: absolute;
+    right: 1px;
+    top: 25px;
+    min-width: 80px;
+    box-shadow: 1px 1px 1px #ccc;
+    -webkit-box-shadow: 1px 1px 1px #ccc;
+    -moz-box-shadow: 1px 1px 1px #ccc;
+    border: 1px solid #ccc;
+    background-color: white;
+    z-index: 5;
+  }
+  .column-selector-dropdown-item {
+    padding: 3px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    align-items: center;
+  }
+  .column-selector-dropdown-item:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+  }
+  .column-selector-dropdown-item + .column-selector-dropdown-item {
+    border-top: 1px solid #ccc;
+  }
 }
 
 .text-right {
   text-align: right;
+}
+
+.text-green {
+  color: rgb(16, 150, 16);
 }

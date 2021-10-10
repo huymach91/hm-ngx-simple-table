@@ -71,6 +71,9 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   };
   public SORT_PARAM = SORT_PARAM;
 
+  public hideColumns = {};
+  public showColumnSelectorDropdown: boolean;
+
   @ViewChildren('columnRef') columnRef: QueryList<ElementRef>;
   @ViewChild('fixedHeaderWrapperRef') fixedHeaderWrapperRef: ElementRef;
   @ViewChildren('fixedColumnHeaderRef')

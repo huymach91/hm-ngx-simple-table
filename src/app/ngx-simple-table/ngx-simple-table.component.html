@@ -17,7 +17,30 @@
       >
     </div>
   </div>
-  <div class="text-right"><span class="column-selector">&#9776;</span></div>
+  <div class="text-right">
+    <div class="column-selector">
+      <span (click)="showColumnSelectorDropdown = !showColumnSelectorDropdown"
+        >&#9776;</span
+      >
+      <div
+        class="column-selector-dropdown-menu"
+        *ngIf="showColumnSelectorDropdown"
+      >
+        <div
+          class="column-selector-dropdown-item"
+          (click)="hideColumns[column.prop] = !hideColumns[column.prop]"
+          *ngFor="let column of config.columns"
+        >
+          <span
+            ><i class="text-green" *ngIf="!hideColumns[column.prop]"
+              >&#10003;</i
+            ></span
+          >
+          <span>{{ column.title }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
   <pages
     [currentPage]="currentPage"
     [pageSize]="pageSize"
@@ -39,6 +62,7 @@
         #fixedColumnHeaderRef
         *ngFor="let column of config.columns"
         (click)="onSort(column.prop)"
+        [hidden]="hideColumns[column.prop]"
       >
         <div class="column-title">{{ column['title'] }}</div>
         <span class="sort">
@@ -70,7 +94,11 @@
                 [(ngModel)]="pageChecked"
               />
             </th>
-            <th #columnRef *ngFor="let column of config.columns">
+            <th
+              #columnRef
+              *ngFor="let column of config.columns"
+              [hidden]="hideColumns[column.prop]"
+            >
               <div class="column-title" (click)="onSort(column.prop)">
                 {{ column['title'] }}
               </div>
@@ -106,7 +134,9 @@
             </td>
 
             <ng-container *ngFor="let column of config.columns">
-              <td>{{ item[column.prop] }}</td>
+              <td [hidden]="hideColumns[column.prop]">
+                {{ item[column.prop] }}
+              </td>
             </ng-container>
           </tr>
         </tbody>
