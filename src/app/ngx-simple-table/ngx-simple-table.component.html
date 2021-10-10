@@ -1,6 +1,6 @@
 <div *ngIf="!totalRecord" class="no-items">No Items</div>
 <div *ngIf="totalRecord">
-  <div>
+  <div class="fixed-bottom-center">
     <div class="select-all-wrapper">
       <a *ngIf="!isAllItemsChecked" (click)="onSelectAll()">Select All</a>
       <a *ngIf="isAllItemsChecked" (click)="onClearAll()">Unselect All</a>
