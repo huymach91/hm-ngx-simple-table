@@ -54,3 +54,26 @@
 .fixed-header-column {
   position: relative;
 }
+
+.fixed-bottom-center {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+}
+
+.select-all-wrapper {
+  width: 350px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 0 3px #ccc;
+  -webkit-box-shadow: 0 0 3px #ccc;
+  -moz-box-shadow: 0 0 3px #ccc;
+  margin: auto;
+  text-align: center;
+  background-color: white;
+}
+
+.link {
+  color: #6eb6ec;
+  cursor: pointer;
+}
