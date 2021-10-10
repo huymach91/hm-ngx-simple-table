@@ -29,17 +29,17 @@ export class AppComponent implements OnInit {
       },
     ],
   };
-  public tableChecked: INgxSimpleTableChecked = {
-    isCheckAll: false,
-    itemsChecked: [],
-    itemsRemoved: [],
-    indeterminate: false,
-  };
   public data = [];
   public pagination = {
     pageSize: 100,
     currentPage: 1,
     totalRecord: 0,
+  };
+  public tableChecked: INgxSimpleTableChecked = {
+    isCheckAll: false,
+    itemsChecked: [],
+    itemsRemoved: [],
+    indeterminate: false,
   };
 
   constructor(private appService: AppService) {}
@@ -68,5 +68,9 @@ export class AppComponent implements OnInit {
     this.pagination.pageSize = data.pageSize;
     this.pagination.currentPage = data.currentPage;
     this.search();
+  }
+
+  public onChecked(tableChecked: INgxSimpleTableChecked) {
+    this.tableChecked = tableChecked;
   }
 }

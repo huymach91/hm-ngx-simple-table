@@ -36,12 +36,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
     this.data = data;
     this.markAllChecked();
   }
-  @Input() tableChecked: INgxSimpleTableChecked = {
-    isCheckAll: false,
-    itemsChecked: [],
-    itemsRemoved: [],
-    indeterminate: false,
-  };
+
   @Input('totalRecord') set setTotalRecord(totalRecord: number) {
     this.totalRecord = totalRecord;
   }
@@ -53,10 +48,18 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   }
   @Output('onChangePaginator') _onChangePaginator = new EventEmitter();
   @Output('onSort') _onSort = new EventEmitter();
+  @Output('onSort') _onChecked = new EventEmitter();
 
   public data: Array<any> = [];
   public pageChecked: boolean = false;
   public isAllItemsChecked: boolean = false;
+
+  public tableChecked: INgxSimpleTableChecked = {
+    isCheckAll: false,
+    itemsChecked: [],
+    itemsRemoved: [],
+    indeterminate: false,
+  };
 
   public totalRecord: number = 0;
   public currentPage: number = 1;
@@ -115,6 +118,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
       this.pushToItemsChecked(data);
     }
     this.markAllChecked();
+    this.emitChangeTableChecked();
   }
 
   private pushToItemsChecked(data: { id: any; checked: boolean }) {
@@ -178,12 +182,14 @@ export class NgxSimpleTableComponent implements AfterViewInit {
     this.isAllItemsChecked = true;
     this.resetTableSelected();
     this.markAllChecked();
+    this.emitChangeTableChecked();
   }
 
   public onClearAll() {
     this.isAllItemsChecked = false;
     this.resetTableSelected();
     this.markAllChecked();
+    this.emitChangeTableChecked();
   }
 
   public resetTableSelected() {
@@ -281,5 +287,16 @@ export class NgxSimpleTableComponent implements AfterViewInit {
     const fixedHeaderWrapper = this.fixedHeaderWrapperRef
       .nativeElement as HTMLDivElement;
     fixedHeaderWrapper.scrollLeft = scrollLeft;
+  }
+
+  public emitChangeTableChecked() {
+    const tableChecked = { ...this.tableChecked };
+    if (this.isAllItemsChecked) {
+      tableChecked.isCheckAll = true;
+      tableChecked.indeterminate = !!this.tableChecked.itemsRemoved.length;
+    }
+    this._onChecked.emit({
+      ...tableChecked,
+    });
   }
 }
