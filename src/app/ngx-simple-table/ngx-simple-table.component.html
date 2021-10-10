@@ -1,8 +1,10 @@
 <div *ngIf="!totalRecord" class="no-items">No Items</div>
 <div *ngIf="totalRecord">
   <div>
-    <a *ngIf="!isAllItemsChecked" (click)="onSelectAll()">Select All</a>
-    <a *ngIf="isAllItemsChecked" (click)="onClearAll()">Unselect All</a>
+    <div class="select-all-wrapper">
+      <a *ngIf="!isAllItemsChecked" (click)="onSelectAll()">Select All</a>
+      <a *ngIf="isAllItemsChecked" (click)="onClearAll()">Unselect All</a>
+    </div>
   </div>
   <pages
     [currentPage]="currentPage"
