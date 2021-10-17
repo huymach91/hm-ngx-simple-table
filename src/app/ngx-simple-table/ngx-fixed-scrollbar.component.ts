@@ -78,7 +78,7 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
 
   private updateScrollBarWidth() {
     const contentWrapperWidth = this.content.offsetWidth;
-    const contentWidth = this.content.querySelector('table').offsetWidth;
+    const contentWidth = this.content.querySelector('table')?.offsetWidth;
     //wrapper scrollbar
     this.scrollbarWrapper.style.setProperty(
       'width',

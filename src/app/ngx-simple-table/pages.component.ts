@@ -23,7 +23,7 @@ export class PagesComponent implements OnInit {
   public currentPage = 1;
   public pageSize = 10;
   public totalRecord = 0;
-  public pages = [];
+  public pages: Array<any> = [];
   public pageSizeList = [10, 25, 50, 100];
   public startPage = 1;
   public endPage = 1;

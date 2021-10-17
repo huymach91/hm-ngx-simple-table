@@ -51,7 +51,7 @@ export class ResizableColumnDirective implements AfterViewInit {
 
   private init() {
     this.columns = this.table.querySelectorAll('thead tr th');
-    this.columns.forEach((column: HTMLElement, index: number) => {
+    this.columns.forEach((column: any, index: number) => {
       if (index === this.columns.length - 1) return;
       column.style.setProperty('position', 'relative');
       const resizer = this.createResizer();
@@ -128,7 +128,7 @@ export class ResizableColumnDirective implements AfterViewInit {
 
   private emitNewColumnWidth() {
     const newWidths = Array.from(this.columns).map(
-      (element: HTMLDivElement) => element.offsetWidth
+      (element: any) => element.offsetWidth
     );
     this.onChange.emit(newWidths);
   }

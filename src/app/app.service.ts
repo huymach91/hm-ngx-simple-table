@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 
-const FAKE_DATA = [];
+const FAKE_DATA: any = [];
 const TOTAL_RECORD = 23;
 
 for (let i = 1; i <= TOTAL_RECORD; i++) {
