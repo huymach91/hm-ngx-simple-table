@@ -53,6 +53,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   public data: Array<any> = [];
   public pageChecked: boolean = false;
   public isAllItemsChecked: boolean = false;
+  public showColumnSelectorDropdown: boolean = false;
 
   public tableChecked: INgxSimpleTableChecked = {
     isCheckAll: false,
