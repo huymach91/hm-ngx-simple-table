@@ -65,14 +65,13 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   public currentPage: number = 1;
   public pageSize: number = 10;
 
-  public sort = {
+  public sort: any = {
     key: '',
     descending: false,
   };
   public SORT_PARAM = SORT_PARAM;
 
   public hideColumns = {};
-  public showColumnSelectorDropdown: boolean;
 
   @ViewChildren('columnRef') columnRef: QueryList<ElementRef>;
   @ViewChild('fixedHeaderWrapperRef') fixedHeaderWrapperRef: ElementRef;
@@ -81,6 +80,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   @ViewChild('tableRef') tableRef: ElementRef;
   @ViewChild('fixedHeaderInnerRef') fixedHeaderInnerRef: ElementRef;
   @ViewChild('ngxFixedScrollbar') ngxFixedScrollbar: NgxFixedScrollbarComponent;
+  @ViewChild('selectAllWrapperRef') selectAllWrapperRef: ElementRef;
 
   constructor() {}
 
