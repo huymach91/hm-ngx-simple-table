@@ -81,7 +81,6 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   @ViewChild('tableRef') tableRef: ElementRef;
   @ViewChild('fixedHeaderInnerRef') fixedHeaderInnerRef: ElementRef;
   @ViewChild('ngxFixedScrollbar') ngxFixedScrollbar: NgxFixedScrollbarComponent;
-  @ViewChild('selectAllWrapperRef') selectAllWrapperRef: ElementRef;
 
   constructor() {}
 
