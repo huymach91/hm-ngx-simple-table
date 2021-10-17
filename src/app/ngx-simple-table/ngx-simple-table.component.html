@@ -2,9 +2,10 @@
 <div *ngIf="totalRecord">
   <div class="text-right">
     <div class="column-selector">
-      <span (click)="showColumnSelectorDropdown = !showColumnSelectorDropdown"
-        >&#9776;</span
-      >
+      <span (click)="showColumnSelectorDropdown = !showColumnSelectorDropdown">
+        <i *ngIf="icons.hamburger" class="{{ icons.hamburger }}"></i>
+        <span *ngIf="!icons.hamburger">&#9776;</span>
+      </span>
       <div
         class="column-selector-dropdown-menu"
         *ngIf="showColumnSelectorDropdown"
@@ -15,10 +16,14 @@
           *ngFor="let column of config.columns"
         >
           <span
-            ><i class="text-green" *ngIf="!hideColumns[column.prop]"
-              >&#10003;</i
-            ></span
-          >
+            ><i
+              class="text-green {{ icons.check }}"
+              *ngIf="!hideColumns[column.prop] && icons.check"
+            ></i>
+            <span *ngIf="!hideColumns[column.prop] && !icons.checked"
+              >&#10003;</span
+            >
+          </span>
           <span>{{ column.title }}</span>
         </div>
       </div>

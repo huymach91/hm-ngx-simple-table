@@ -36,6 +36,10 @@ export class NgxSimpleTableComponent implements AfterViewInit {
     this.data = data;
     this.markAllChecked();
   }
+  @Input() icons: any = {
+    check: '',
+    hamburger: '',
+  };
 
   @Input('totalRecord') set setTotalRecord(totalRecord: number) {
     this.totalRecord = totalRecord;
@@ -105,7 +109,11 @@ export class NgxSimpleTableComponent implements AfterViewInit {
 
     // stop fixed select all
     this.fixedSelectAll(false);
-    if (tableRect.y <= 200 && viewPortBottomEgde < contentBottomEdge) {
+    console.log(tableRect.y, viewPortBottomEgde, contentBottomEdge);
+    if (
+      tableRect.y - window.innerHeight <= 0 &&
+      viewPortBottomEgde < contentBottomEdge
+    ) {
       this.fixedSelectAll(true);
     }
   }
