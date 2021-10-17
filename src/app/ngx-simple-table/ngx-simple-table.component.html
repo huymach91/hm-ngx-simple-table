@@ -1,22 +1,5 @@
 <div *ngIf="!totalRecord" class="no-items">No Items</div>
 <div *ngIf="totalRecord">
-  <div class="fixed-bottom-center">
-    <div class="select-all-wrapper">
-      <span
-        >{{
-          isAllItemsChecked
-            ? totalRecord - tableChecked.itemsRemoved.length
-            : tableChecked.itemsChecked.length
-        }}&nbsp;items are selected.</span
-      >&nbsp;
-      <a *ngIf="!isAllItemsChecked" class="link" (click)="onSelectAll()"
-        >Select all {{ totalRecord | number }} items on all pages</a
-      >
-      <a *ngIf="isAllItemsChecked" class="link" (click)="onClearAll()"
-        >Clear all selections.</a
-      >
-    </div>
-  </div>
   <div class="text-right">
     <div class="column-selector">
       <span (click)="showColumnSelectorDropdown = !showColumnSelectorDropdown"
@@ -150,4 +133,22 @@
     [totalRecord]="totalRecord"
     (onChangePaginator)="onChangePaginator($event)"
   ></pages>
+
+  <div class="fixed-bottom-center">
+    <div class="select-all-wrapper">
+      <span
+        >{{
+          isAllItemsChecked
+            ? totalRecord - tableChecked.itemsRemoved.length
+            : tableChecked.itemsChecked.length
+        }}&nbsp;items are selected.</span
+      >&nbsp;
+      <a *ngIf="!isAllItemsChecked" class="link" (click)="onSelectAll()"
+        >Select all {{ totalRecord | number }} items on all pages</a
+      >
+      <a *ngIf="isAllItemsChecked" class="link" (click)="onClearAll()"
+        >Clear all selections.</a
+      >
+    </div>
+  </div>
 </div>
