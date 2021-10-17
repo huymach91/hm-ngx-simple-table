@@ -81,6 +81,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   @ViewChild('tableRef') tableRef: ElementRef;
   @ViewChild('fixedHeaderInnerRef') fixedHeaderInnerRef: ElementRef;
   @ViewChild('ngxFixedScrollbar') ngxFixedScrollbar: NgxFixedScrollbarComponent;
+  @ViewChild('selectAllWrapperRef') selectAllWrapperRef: ElementRef;
 
   constructor() {}
 
@@ -93,18 +94,20 @@ export class NgxSimpleTableComponent implements AfterViewInit {
     const contentBottomEdge =
       tableElement.offsetTop + tableElement.offsetHeight;
     const tableRect = tableElement.getBoundingClientRect();
+    const viewPortBottomEgde = window.scrollY + window.innerHeight;
+    // stop fixed header
+    this.stopFixedHeader();
     // case 1: viewport's top edge is scrolled over element's top edge
-    if (tableRect.y > 0) {
-      this.stopFixedHeader();
-      return;
-    }
     // case 2: viewport's bottom edge touched element's bottom edge
-    // case 2: viewport's bottom edge touched element's bottom edge
-    if (window.scrollY >= contentBottomEdge) {
-      this.stopFixedHeader();
-      return;
+    if (tableRect.y <= 0 && window.scrollY < contentBottomEdge) {
+      this.startFixedHeader();
     }
-    this.startFixedHeader();
+
+    // stop fixed select all
+    this.fixedSelectAll(false);
+    if (tableRect.y <= 200 && viewPortBottomEgde < contentBottomEdge) {
+      this.fixedSelectAll(true);
+    }
   }
 
   public onCheckAll(checked: boolean) {
@@ -230,6 +233,13 @@ export class NgxSimpleTableComponent implements AfterViewInit {
       .nativeElement as HTMLDivElement;
     if (!fixedHeaderWrapper) return;
     fixedHeaderWrapper.style.setProperty('display', show ? 'flex' : 'none');
+  }
+
+  public fixedSelectAll(show: boolean) {
+    const selectAllWrapper = this.selectAllWrapperRef
+      .nativeElement as HTMLDivElement;
+    if (!selectAllWrapper) return;
+    selectAllWrapper.setAttribute('class', show ? 'fixed-bottom-center' : '');
   }
 
   public fitSizeFixedHeader() {
