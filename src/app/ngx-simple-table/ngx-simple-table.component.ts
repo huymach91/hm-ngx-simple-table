@@ -30,6 +30,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   @Input() config: INgxSimpleTableConfig = {
     virtualScroll: false,
     tableClass: '',
+    fixedHeaderClass: '',
     columns: [],
   };
   @Input('data') set setData(data: Array<any>) {

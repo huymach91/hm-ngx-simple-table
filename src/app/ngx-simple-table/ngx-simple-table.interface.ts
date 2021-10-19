@@ -14,4 +14,5 @@ export interface INgxSimpleTableConfig {
   tableClass: string;
   virtualScroll: boolean;
   columns: Array<INgxSimpleTableColumn>;
+  fixedHeaderClass?: string;
 }
