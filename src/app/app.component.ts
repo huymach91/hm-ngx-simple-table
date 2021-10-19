@@ -12,7 +12,7 @@ import {
 })
 export class AppComponent implements OnInit {
   public simpleTableConfig: INgxSimpleTableConfig = {
-    tableClass: 'my-simple-table',
+    tableClass: 'my-simple-table table table-hovered',
     virtualScroll: false,
     columns: [
       {
