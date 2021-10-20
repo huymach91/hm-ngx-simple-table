@@ -3,12 +3,13 @@ import { AppService } from './app.service';
 import {
   INgxSimpleTableChecked,
   INgxSimpleTableConfig,
+  INgxSimpleTableIcon,
 } from './ngx-simple-table/ngx-simple-table.interface';
 
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   public simpleTableConfig: INgxSimpleTableConfig = {
@@ -28,6 +29,10 @@ export class AppComponent implements OnInit {
         title: 'Age',
       },
     ],
+  };
+  public icons: INgxSimpleTableIcon = {
+    hamburger: 'bi bi-list',
+    check: 'bi bi-check',
   };
   public data = [];
   public pagination = {
