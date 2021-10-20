@@ -1,40 +1,46 @@
 <div *ngIf="!totalRecord" class="no-items">No Items</div>
 <div *ngIf="totalRecord">
-  <div class="text-right">
-    <div class="column-selector" #columnSelectorRef>
-      <span (click)="showColumnSelectorDropdown = !showColumnSelectorDropdown">
-        <i *ngIf="icons.hamburger" class="{{ icons.hamburger }}"></i>
-        <span *ngIf="!icons.hamburger">&#9776;</span>
-      </span>
-      <div
-        class="column-selector-dropdown-menu {{ config.fixedHeaderClass }}"
-        *ngIf="showColumnSelectorDropdown"
-      >
-        <div
-          class="column-selector-dropdown-item"
-          (click)="hideColumns[column.prop] = !hideColumns[column.prop]"
-          *ngFor="let column of config.columns"
-        >
-          <span
-            ><i
-              class="text-green {{ icons.check }}"
-              *ngIf="!hideColumns[column.prop] && icons.check"
-            ></i>
-            <span *ngIf="!hideColumns[column.prop] && !icons.check"
-              >&#10003;</span
-            >
-          </span>
-          <span>{{ column.title }}</span>
-        </div>
-      </div>
-    </div>
-  </div>
   <pages
     [currentPage]="currentPage"
     [pageSize]="pageSize"
     [totalRecord]="totalRecord"
     (onChangePaginator)="onChangePaginator($event)"
-  ></pages>
+  >
+    <ng-container center-right>
+      <div class="column-selector" #columnSelectorRef>
+        <span
+          (click)="showColumnSelectorDropdown = !showColumnSelectorDropdown"
+        >
+          <i
+            *ngIf="icons.hamburger"
+            class="hamburger-icon {{ icons.hamburger }}"
+          ></i>
+          <span *ngIf="!icons.hamburger">&#9776;</span>
+        </span>
+        <div
+          class="column-selector-dropdown-menu {{ config.fixedHeaderClass }}"
+          *ngIf="showColumnSelectorDropdown"
+        >
+          <div
+            class="column-selector-dropdown-item"
+            (click)="hideColumns[column.prop] = !hideColumns[column.prop]"
+            *ngFor="let column of config.columns"
+          >
+            <span
+              ><i
+                class="text-green {{ icons.check }}"
+                *ngIf="!hideColumns[column.prop] && icons.check"
+              ></i>
+              <span *ngIf="!hideColumns[column.prop] && !icons.check"
+                >&#10003;</span
+              >
+            </span>
+            <span>{{ column.title }}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </pages>
   <div class="fixed-header-wrapper" #fixedHeaderWrapperRef>
     <div class="fixed-header-inner bg-whitesmoke" #fixedHeaderInnerRef>
       <div class="chb text-center" #fixedColumnHeaderRef>
