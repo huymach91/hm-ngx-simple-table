@@ -90,10 +90,21 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   @ViewChild('fixedHeaderInnerRef') fixedHeaderInnerRef: ElementRef;
   @ViewChild('ngxFixedScrollbar') ngxFixedScrollbar: NgxFixedScrollbarComponent;
   @ViewChild('selectAllWrapperRef') selectAllWrapperRef: ElementRef;
+  @ViewChild('columnSelectorRef') columnSelectorRef: ElementRef;
 
   constructor() {}
 
   ngAfterViewInit() {}
+
+  @HostListener('document:click', ['$event'])
+  public onDocumentClick(event: any) {
+    console.log('event click');
+    const columnSelector = this.columnSelectorRef
+      .nativeElement as HTMLDivElement;
+    if (!columnSelector.contains(event.target)) {
+      this.showColumnSelectorDropdown = false;
+    }
+  }
 
   @HostListener('document:scroll', ['$event'])
   public onWindowScroll(event: any) {

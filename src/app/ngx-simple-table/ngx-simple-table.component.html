@@ -1,7 +1,7 @@
 <div *ngIf="!totalRecord" class="no-items">No Items</div>
 <div *ngIf="totalRecord">
   <div class="text-right">
-    <div class="column-selector">
+    <div class="column-selector" #columnSelectorRef>
       <span (click)="showColumnSelectorDropdown = !showColumnSelectorDropdown">
         <i *ngIf="icons.hamburger" class="{{ icons.hamburger }}"></i>
         <span *ngIf="!icons.hamburger">&#9776;</span>
@@ -37,7 +37,7 @@
   ></pages>
   <div class="fixed-header-wrapper" #fixedHeaderWrapperRef>
     <div class="fixed-header-inner bg-whitesmoke" #fixedHeaderInnerRef>
-      <div class="chb" #fixedColumnHeaderRef>
+      <div class="chb text-center" #fixedColumnHeaderRef>
         <input
           class="check-all-item"
           type="checkbox"
@@ -94,7 +94,7 @@
       >
         <thead *ngIf="config.columns.length">
           <tr class="bg-whitesmoke">
-            <th #columnRef>
+            <th #columnRef class="text-center">
               <input
                 class="check-all-item"
                 type="checkbox"
