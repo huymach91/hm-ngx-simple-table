@@ -19,7 +19,7 @@ The table has basic features as below:
 - resizable columns
 ## Screenshots
 
-![App Screenshot](https://raw.githubusercontent.com/huymach91/hm-ngx-simple-table/master/src/assets/ngx-simple-table.png?token=AHXRERNQ7POX3LIWRZK2IZLBN7C5G)
+![App Screenshot](https://raw.githubusercontent.com/huymach91/hm-ngx-simple-table/master/src/assets/ngx-simple-table.png?token=AHXRERMF7N6U4HSCDK5WX43BN7FHU)
 
   
 ## Browser Support
