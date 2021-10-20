@@ -20,4 +20,6 @@ export interface INgxSimpleTableConfig {
 export interface INgxSimpleTableIcon {
   check: string;
   hamburger: string;
+  sortAsc: string;
+  sortDesc: string;
 }

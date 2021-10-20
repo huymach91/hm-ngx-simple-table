@@ -33,6 +33,8 @@ export class AppComponent implements OnInit {
   public icons: INgxSimpleTableIcon = {
     hamburger: 'bi bi-list',
     check: 'bi bi-check',
+    sortAsc: 'bi bi-sort-down',
+    sortDesc: 'bi bi-sort-up',
   };
   public data = [];
   public pagination = {

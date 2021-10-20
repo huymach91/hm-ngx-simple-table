@@ -54,12 +54,32 @@
       >
         <div class="column-title">{{ column['title'] }}</div>
         <span class="sort">
-          <span title="asc" *ngIf="sort.key === column.prop && !sort.descending"
+          <span
+            title="asc"
+            *ngIf="
+              !icons.sortAsc && sort.key === column.prop && !sort.descending
+            "
             >&#8593;</span
           >
-          <span title="desc" *ngIf="sort.key === column.prop && sort.descending"
+          <i
+            *ngIf="
+              icons.sortAsc && sort.key === column.prop && !sort.descending
+            "
+            class="{{ icons.sortAsc }}"
+          ></i>
+          <span
+            title="desc"
+            *ngIf="
+              !icons.sortDesc && sort.key === column.prop && sort.descending
+            "
             >&#8595;</span
           >
+          <i
+            *ngIf="
+              icons.sortDesc && sort.key === column.prop && sort.descending
+            "
+            class="{{ icons.sortDesc }}"
+          ></i>
         </span>
       </div>
     </div>
@@ -93,14 +113,40 @@
               <span class="sort" (click)="onSort(column.prop)">
                 <span
                   title="asc"
-                  *ngIf="sort.key === column.prop && !sort.descending"
+                  *ngIf="
+                    !icons.sortAsc &&
+                    sort.key === column.prop &&
+                    !sort.descending
+                  "
                   >&#8593;</span
                 >
+                <i
+                  title="asc"
+                  class="{{ icons.sortAsc }}"
+                  *ngIf="
+                    icons.sortAsc &&
+                    sort.key === column.prop &&
+                    !sort.descending
+                  "
+                ></i>
                 <span
                   title="desc"
-                  *ngIf="sort.key === column.prop && sort.descending"
+                  *ngIf="
+                    !icons.sortDesc &&
+                    sort.key === column.prop &&
+                    sort.descending
+                  "
                   >&#8595;</span
                 >
+                <i
+                  title="desc"
+                  class="{{ icons.sortDesc }}"
+                  *ngIf="
+                    icons.sortDesc &&
+                    sort.key === column.prop &&
+                    sort.descending
+                  "
+                ></i>
               </span>
             </th>
           </tr>

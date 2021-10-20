@@ -41,6 +41,8 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   @Input() icons: INgxSimpleTableIcon = {
     check: '',
     hamburger: '',
+    sortAsc: '',
+    sortDesc: '',
   };
 
   @Input('totalRecord') set setTotalRecord(totalRecord: number) {
