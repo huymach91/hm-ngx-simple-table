@@ -48,7 +48,10 @@ export class AppComponent implements OnInit {
     itemsRemoved: [],
     indeterminate: false,
   };
-  public sort: any = {};
+  public sort: any = {
+    key: 'id',
+    descending: false,
+  };
 
   constructor(private appService: AppService) {}
 

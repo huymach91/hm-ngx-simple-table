@@ -18,7 +18,8 @@ export class AppService {
   constructor() {}
 
   public getData(params: any) {
-    console.log(params);
+    this.sort(FAKE_DATA, params.key, params.descending);
+    console.log(FAKE_DATA);
     return of({
       status: true,
       data: this.paging(FAKE_DATA, params),
@@ -34,5 +35,17 @@ export class AppService {
       (config.currentPage - 1) * config.pageSize,
       config.currentPage * config.pageSize
     );
+  }
+
+  private sort(list: Array<any>, key: string, descending: boolean) {
+    list.sort((a: any, b: any) => {
+      const isNumeric: boolean =
+        typeof a[key] === 'number' || typeof b[key] === 'number' ? true : false;
+      const valueA = '' + a[key];
+      const valueB = '' + b[key];
+      return descending
+        ? valueB.localeCompare(valueA, undefined, { numeric: isNumeric })
+        : valueA.localeCompare(valueB, undefined, { numeric: isNumeric });
+    });
   }
 }
