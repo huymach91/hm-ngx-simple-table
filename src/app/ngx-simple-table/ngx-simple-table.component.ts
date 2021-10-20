@@ -98,7 +98,6 @@ export class NgxSimpleTableComponent implements AfterViewInit {
 
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: any) {
-    console.log('event click');
     const columnSelector = this.columnSelectorRef
       .nativeElement as HTMLDivElement;
     if (!columnSelector.contains(event.target)) {
@@ -124,7 +123,6 @@ export class NgxSimpleTableComponent implements AfterViewInit {
 
     // stop fixed select all
     this.fixedSelectAll(false);
-    console.log(tableRect.y, viewPortBottomEgde, contentBottomEdge);
     if (
       tableRect.y - window.innerHeight <= 0 &&
       viewPortBottomEgde < contentBottomEdge
