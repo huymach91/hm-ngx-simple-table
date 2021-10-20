@@ -14,6 +14,7 @@ import { NgxFixedScrollbarComponent } from './ngx-fixed-scrollbar.component';
 import {
   INgxSimpleTableChecked,
   INgxSimpleTableConfig,
+  INgxSimpleTableIcon,
 } from './ngx-simple-table.interface';
 
 enum SORT_PARAM {
@@ -37,7 +38,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
     this.data = data;
     this.markAllChecked();
   }
-  @Input() icons: any = {
+  @Input() icons: INgxSimpleTableIcon = {
     check: '',
     hamburger: '',
   };

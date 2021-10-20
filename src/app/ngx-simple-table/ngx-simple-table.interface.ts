@@ -16,3 +16,8 @@ export interface INgxSimpleTableConfig {
   columns: Array<INgxSimpleTableColumn>;
   fixedHeaderClass?: string;
 }
+
+export interface INgxSimpleTableIcon {
+  check: string;
+  hamburger: string;
+}

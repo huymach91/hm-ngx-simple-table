@@ -85,7 +85,6 @@
     cursor: pointer;
   }
   .column-selector-dropdown-menu {
-    font-size: 12px;
     position: absolute;
     right: 1px;
     top: 25px;
@@ -102,7 +101,7 @@
     height: 100%;
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 0.8em;
     align-items: center;
   }
   .column-selector-dropdown-item:hover {
