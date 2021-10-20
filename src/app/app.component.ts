@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
 
   public search() {
     this.appService
-      .getData({ ...this.tableChecked, ...this.pagination })
+      .getData({ ...this.tableChecked, ...this.pagination, ...this.sort })
       .subscribe((resp: any) => {
         this.data = resp.data;
         this.pagination.totalRecord = resp.totalRecord;
@@ -84,5 +84,6 @@ export class AppComponent implements OnInit {
 
   public onSort(value: any) {
     this.sort = value;
+    this.search();
   }
 }

@@ -18,6 +18,7 @@ export class AppService {
   constructor() {}
 
   public getData(params: any) {
+    console.log(params);
     return of({
       status: true,
       data: this.paging(FAKE_DATA, params),
