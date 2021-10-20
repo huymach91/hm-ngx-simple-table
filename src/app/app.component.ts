@@ -48,6 +48,7 @@ export class AppComponent implements OnInit {
     itemsRemoved: [],
     indeterminate: false,
   };
+  public sort: any = {};
 
   constructor(private appService: AppService) {}
 
@@ -79,5 +80,9 @@ export class AppComponent implements OnInit {
 
   public onChecked(tableChecked: any) {
     this.tableChecked = tableChecked;
+  }
+
+  public onSort(value: any) {
+    this.sort = value;
   }
 }

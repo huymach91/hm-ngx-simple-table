@@ -22,12 +22,17 @@
     [currentPage]="pagination.currentPage"
     [pageSize]="pagination.pageSize"
     (onChecked)="onChecked($event)"
+    (onSort)="onSort($event)"
     (onChangePaginator)="onChangePaginator($event)"
   >
   </ngx-simple-table>
   <div>
     model:
     <pre>{{ tableChecked | json }}</pre>
+  </div>
+  <div>
+    sort:
+    <pre>{{ sort | json }}</pre>
   </div>
   <div class="margin"></div>
 </div>
