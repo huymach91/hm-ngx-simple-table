@@ -1,4 +1,4 @@
-.pagination {
+.ngx-simple-table-pagination {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,9 +8,14 @@
   > div:last-child {
     width: 30%;
   }
+  .page-size-selector {
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+  }
 }
 
-ul li.page-item {
+ul li.pitem {
   list-style: none;
 }
 
@@ -21,16 +26,16 @@ ul li.page-item {
     column-gap: 5px;
     justify-content: flex-end;
   }
-  .page-item {
+  .pitem {
     list-style: none;
     padding: 3px 10px;
     cursor: pointer;
     border: 1px solid #ccc;
   }
-  .page-item:hover {
+  .pitem:hover {
     background-color: whitesmoke;
   }
-  .page-item.active-page {
+  .pitem.active-page {
     cursor: unset;
     background-color: whitesmoke;
   }

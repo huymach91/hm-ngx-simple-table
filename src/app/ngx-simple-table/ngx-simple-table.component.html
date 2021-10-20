@@ -7,7 +7,7 @@
         <span *ngIf="!icons.hamburger">&#9776;</span>
       </span>
       <div
-        class="column-selector-dropdown-menu {{config.fixedHeaderClass}}"
+        class="column-selector-dropdown-menu {{ config.fixedHeaderClass }}"
         *ngIf="showColumnSelectorDropdown"
       >
         <div
@@ -139,7 +139,7 @@
     (onChangePaginator)="onChangePaginator($event)"
   ></pages>
 
-  <div #selectAllWrapperRef>
+  <div class="text-center" #selectAllWrapperRef>
     <div class="select-all-wrapper">
       <span
         >{{

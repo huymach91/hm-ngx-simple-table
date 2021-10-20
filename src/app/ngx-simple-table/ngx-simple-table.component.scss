@@ -62,7 +62,7 @@
 }
 
 .select-all-wrapper {
-  width: 350px;
+  display: inline-block;
   border: 1px solid #ccc;
   padding: 10px;
   box-shadow: 0 0 3px #ccc;
@@ -116,6 +116,10 @@
 
 .text-right {
   text-align: right;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .text-green {

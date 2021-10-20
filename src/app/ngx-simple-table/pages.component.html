@@ -1,4 +1,4 @@
-<div *ngIf="pages.length" class="pagination">
+<div *ngIf="pages.length" class="ngx-simple-table-pagination">
   <div>
     {{ (currentPage - 1) * pageSize + 1 }} -
     {{
@@ -25,17 +25,17 @@
     <nav class="page-numbers" *ngIf="pages.length > 1">
       <ul>
         <li
-          class="page-item"
+          class="pitem"
           [ngClass]="{ 'active-page': currentPage <= 1 }"
           (click)="currentPage > 1 ? onChangePaginator(1) : ''"
         >
-          <span class="page-link">1</span>
+          <span class="plink">1</span>
         </li>
-        <li class="page-item disabled" *ngIf="startPage > 1" class="">
+        <li class="pitem disabled" *ngIf="startPage > 1" class="">
           <span>...</span>
         </li>
         <li
-          class="page-item"
+          class="pitem"
           [ngClass]="{ 'active-page': page === currentPage }"
           [style.display]="
             page > startPage && page < endPage ? 'block' : 'none'
@@ -43,19 +43,19 @@
           *ngFor="let page of pages"
           (click)="page === currentPage ? '' : onChangePaginator(page)"
         >
-          <span class="page-link">{{ page }}</span>
+          <span class="plink">{{ page }}</span>
         </li>
-        <li class="page-item disabled" *ngIf="endPage < pages.length" class="">
+        <li class="pitem disabled" *ngIf="endPage < pages.length" class="">
           <span>...</span>
         </li>
         <li
-          class="page-item"
+          class="pitem"
           [ngClass]="{ 'active-page': currentPage >= pages.length }"
           (click)="
             currentPage < pages.length ? onChangePaginator(pages.length) : ''
           "
         >
-          <span class="page-link">{{ pages.length }}</span>
+          <span class="plink">{{ pages.length }}</span>
         </li>
       </ul>
     </nav>
