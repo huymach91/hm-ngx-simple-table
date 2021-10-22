@@ -1,0 +1,16 @@
+.flex {
+  display: flex;
+}
+.margin {
+  margin-top: 1000px;
+}
+ul {
+  margin-top: 10px;
+}
+
+::ng-deep {
+  .table th,
+  .table td {
+    padding: 0.2em !important;
+  }
+}

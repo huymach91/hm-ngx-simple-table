@@ -1,0 +1,12 @@
+<ngx-simple-table
+  [config]="simpleTableConfig"
+  [data]="data"
+  [icons]="icons"
+  [totalRecord]="pagination.totalRecord"
+  [currentPage]="pagination.currentPage"
+  [pageSize]="pagination.pageSize"
+  (onChecked)="onChecked($event)"
+  (onSort)="onSort($event)"
+  (onChangePaginator)="onChangePaginator($event)"
+>
+</ngx-simple-table>
