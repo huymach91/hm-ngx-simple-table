@@ -1,6 +1,7 @@
 export interface INgxSimpleTableColumn {
   prop: string;
   title: string;
+  fixed?: boolean;
 }
 
 export interface INgxSimpleTableChecked {
