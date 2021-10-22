@@ -6,11 +6,10 @@ import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { NgxSimpleTableModule } from './ngx-simple-table/ngx-simple-table.module';
 import { CommonModule } from '@angular/common';
-import { DemoFixedColumnComponent } from './demo-fixed-column/demo-fixed-column.component';
 
 @NgModule({
   imports: [BrowserModule, CommonModule, FormsModule, NgxSimpleTableModule],
-  declarations: [AppComponent, DemoFixedColumnComponent],
+  declarations: [AppComponent],
   bootstrap: [AppComponent],
   providers: [AppService],
 })
