@@ -82,6 +82,11 @@ export class NgxFixedColumnTableComponent implements AfterViewInit {
 
   public hideColumns = {};
 
+  public scrollerStyle = {
+    width: 0,
+    marginLeft: 0,
+  };
+
   @ViewChildren('columnRef') columnRef: QueryList<ElementRef>;
   @ViewChild('fixedHeaderWrapperRef') fixedHeaderWrapperRef: ElementRef;
   @ViewChildren('fixedColumnHeaderRef')
