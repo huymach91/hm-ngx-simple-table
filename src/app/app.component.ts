@@ -53,6 +53,41 @@ export class AppComponent implements OnInit {
     descending: false,
   };
 
+  public fixedColumnTableConfig: INgxSimpleTableConfig = {
+    tableClass: 'fixed-column-table table table-hovered',
+    virtualScroll: false,
+    columns: [
+      {
+        prop: 'id',
+        title: 'ID',
+      },
+      {
+        prop: 'name',
+        title: 'Name',
+      },
+      {
+        prop: 'age',
+        title: 'Age',
+      },
+      {
+        prop: 'birthDate',
+        title: 'Birth Date',
+      },
+      {
+        prop: 'grade',
+        title: 'Grade',
+      },
+      {
+        prop: 'math',
+        title: 'Math',
+      },
+      {
+        prop: 'physics',
+        title: 'Physics',
+      },
+    ],
+  };
+
   constructor(private appService: AppService) {}
 
   ngOnInit() {
