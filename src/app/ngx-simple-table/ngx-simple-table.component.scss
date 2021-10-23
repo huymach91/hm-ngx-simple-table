@@ -125,3 +125,13 @@
 .text-green {
   color: rgb(16, 150, 16);
 }
+
+.wrapper {
+  position: relative;
+}
+
+.scroller {
+  position: absolute;
+  left: 0;
+  top: auto;
+}
