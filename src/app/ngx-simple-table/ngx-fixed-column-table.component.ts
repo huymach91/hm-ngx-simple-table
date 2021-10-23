@@ -88,7 +88,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     width: 0,
     marginLeft: 0,
   };
-  private fixedColumns: number = 0;
+  private fixedColumns: Array<INgxSimpleTableColumn>;
 
   @ViewChildren('columnRef') columnRef: QueryList<ElementRef>;
   @ViewChild('fixedHeaderWrapperRef') fixedHeaderWrapperRef: ElementRef;
@@ -103,14 +103,16 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
   constructor() {}
 
   ngOnInit() {
-    this.fixedColumns = this.config.columns.filter(
-      (column: INgxSimpleTableColumn) => column?.fixed
-    ).length;
-    console.log(this.fixedColumns);
+    this.fixedColumns = this.config.columns.filter((column) => column?.fixed);
   }
 
   ngAfterViewInit() {
-    console.log(this.tableRef);
+    this.columnRef.changes.subscribe(() => {
+      const columns = this.columnRef.filter((column) =>
+        (column.nativeElement as HTMLElement).className.includes('fixed-column')
+      );
+      console.log(columns);
+    });
   }
 
   @HostListener('document:click', ['$event'])
