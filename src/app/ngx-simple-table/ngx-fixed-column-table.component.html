@@ -1,1 +1,214 @@
-ngx-fixed-column-table
+<div *ngIf="!totalRecord" class="no-items">No Items</div>
+<div *ngIf="totalRecord">
+  <pages
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [totalRecord]="totalRecord"
+    (onChangePaginator)="onChangePaginator($event)"
+  >
+    <ng-container center-right>
+      <div class="column-selector" #columnSelectorRef>
+        <span
+          (click)="showColumnSelectorDropdown = !showColumnSelectorDropdown"
+        >
+          <i
+            *ngIf="icons.hamburger"
+            class="hamburger-icon {{ icons.hamburger }}"
+          ></i>
+          <span *ngIf="!icons.hamburger">&#9776;</span>
+        </span>
+        <div
+          class="column-selector-dropdown-menu {{ config.fixedHeaderClass }}"
+          *ngIf="showColumnSelectorDropdown"
+        >
+          <div
+            class="column-selector-dropdown-item"
+            (click)="hideColumns[column.prop] = !hideColumns[column.prop]"
+            *ngFor="let column of config.columns"
+          >
+            <span
+              ><i
+                class="text-green {{ icons.check }}"
+                *ngIf="!hideColumns[column.prop] && icons.check"
+              ></i>
+              <span *ngIf="!hideColumns[column.prop] && !icons.check"
+                >&#10003;</span
+              >
+            </span>
+            <span>{{ column.title }}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </pages>
+  <div class="fixed-header-wrapper" #fixedHeaderWrapperRef>
+    <div class="fixed-header-inner bg-whitesmoke" #fixedHeaderInnerRef>
+      <div class="chb text-center" #fixedColumnHeaderRef>
+        <input
+          class="check-all-item"
+          type="checkbox"
+          (change)="onCheckAll(pageChecked)"
+          [(ngModel)]="pageChecked"
+        />
+      </div>
+      <div
+        class="fixed-header-column"
+        #fixedColumnHeaderRef
+        *ngFor="let column of config.columns"
+        (click)="onSort(column.prop)"
+        [hidden]="hideColumns[column.prop]"
+      >
+        <div class="column-title">{{ column['title'] }}</div>
+        <span class="sort">
+          <span
+            title="asc"
+            *ngIf="
+              !icons.sortAsc && sort.key === column.prop && !sort.descending
+            "
+            >&#8593;</span
+          >
+          <i
+            *ngIf="
+              icons.sortAsc && sort.key === column.prop && !sort.descending
+            "
+            class="{{ icons.sortAsc }}"
+          ></i>
+          <span
+            title="desc"
+            *ngIf="
+              !icons.sortDesc && sort.key === column.prop && sort.descending
+            "
+            >&#8595;</span
+          >
+          <i
+            *ngIf="
+              icons.sortDesc && sort.key === column.prop && sort.descending
+            "
+            class="{{ icons.sortDesc }}"
+          ></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <ngx-fixed-scrollbar #ngxFixedScrollbar (onScroll)="onScrollX($event)">
+    <ng-container content>
+      <!-- <table
+        #tableRef
+        resizable-column
+        (onChange)="onResize()"
+        class="simple-table {{ config.tableClass }}"
+        border="1"
+      >
+        <thead *ngIf="config.columns.length">
+          <tr class="bg-whitesmoke">
+            <th #columnRef class="text-center">
+              <input
+                class="check-all-item"
+                type="checkbox"
+                (change)="onCheckAll(pageChecked)"
+                [(ngModel)]="pageChecked"
+              />
+            </th>
+            <th
+              #columnRef
+              *ngFor="let column of config.columns"
+              [hidden]="hideColumns[column.prop]"
+            >
+              <div class="column-title" (click)="onSort(column.prop)">
+                {{ column['title'] }}
+              </div>
+              <span class="sort" (click)="onSort(column.prop)">
+                <span
+                  title="asc"
+                  *ngIf="
+                    !icons.sortAsc &&
+                    sort.key === column.prop &&
+                    !sort.descending
+                  "
+                  >&#8593;</span
+                >
+                <i
+                  title="asc"
+                  class="{{ icons.sortAsc }}"
+                  *ngIf="
+                    icons.sortAsc &&
+                    sort.key === column.prop &&
+                    !sort.descending
+                  "
+                ></i>
+                <span
+                  title="desc"
+                  *ngIf="
+                    !icons.sortDesc &&
+                    sort.key === column.prop &&
+                    sort.descending
+                  "
+                  >&#8595;</span
+                >
+                <i
+                  title="desc"
+                  class="{{ icons.sortDesc }}"
+                  *ngIf="
+                    icons.sortDesc &&
+                    sort.key === column.prop &&
+                    sort.descending
+                  "
+                ></i>
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data">
+            <td class="checkbox-column">
+              <input
+                class="check-item"
+                type="checkbox"
+                (change)="
+                  onCheckItem({
+                    id: item.id,
+                    checked: $event.target['checked']
+                  })
+                "
+                [checked]="isItemChecked(item.id)"
+              />
+            </td>
+
+            <ng-container *ngFor="let column of config.columns">
+              <td [hidden]="hideColumns[column.prop]">
+                {{ item[column.prop] }}
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table> -->
+    </ng-container>
+  </ngx-fixed-scrollbar>
+
+  <pages
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [totalRecord]="totalRecord"
+    (onChangePaginator)="onChangePaginator($event)"
+  ></pages>
+
+  <div #selectAllWrapperRef>
+    <div class="text-center">
+      <div class="select-all-wrapper">
+        <span
+          >{{
+            isAllItemsChecked
+              ? totalRecord - tableChecked.itemsRemoved.length
+              : tableChecked.itemsChecked.length
+          }}&nbsp;items are selected.</span
+        >&nbsp;
+        <a *ngIf="!isAllItemsChecked" class="link" (click)="onSelectAll()"
+          >Select all {{ totalRecord | number }} items on all pages</a
+        >
+        <a *ngIf="isAllItemsChecked" class="link" (click)="onClearAll()"
+          >Clear all selections.</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
