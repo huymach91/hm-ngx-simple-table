@@ -67,6 +67,7 @@ export class ResizableColumnDirective implements AfterViewInit {
     resizer.style.setProperty('top', '0');
     resizer.style.setProperty('cursor', 'col-resize');
     resizer.style.setProperty('right', '-1px');
+    resizer.style.setProperty('z-index', '3');
     resizer.style.setProperty('height', this.table.offsetHeight + 'px');
     resizer.onmousedown = (mdEvent) => {
       this.isMouseDown = true;
