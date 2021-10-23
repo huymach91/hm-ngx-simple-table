@@ -178,7 +178,10 @@
                 </td>
 
                 <ng-container *ngFor="let column of config.columns">
-                  <td [hidden]="hideColumns[column.prop]">
+                  <td
+                    [hidden]="hideColumns[column.prop]"
+                    [ngClass]="{ 'fixed-column': column?.fixed }"
+                  >
                     {{ item[column.prop] }}
                   </td>
                 </ng-container>

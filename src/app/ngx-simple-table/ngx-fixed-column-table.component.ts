@@ -5,6 +5,7 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnInit,
   Output,
   QueryList,
   ViewChild,
@@ -13,6 +14,7 @@ import {
 import { NgxFixedScrollbarComponent } from './ngx-fixed-scrollbar.component';
 import {
   INgxSimpleTableChecked,
+  INgxSimpleTableColumn,
   INgxSimpleTableConfig,
   INgxSimpleTableIcon,
 } from './ngx-simple-table.interface';
@@ -27,7 +29,7 @@ enum SORT_PARAM {
   templateUrl: './ngx-fixed-column-table.component.html',
   styleUrls: ['./ngx-simple-table.component.scss'],
 })
-export class NgxFixedColumnTableComponent implements AfterViewInit {
+export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
   @Input() config: INgxSimpleTableConfig = {
     virtualScroll: false,
     tableClass: '',
@@ -86,6 +88,7 @@ export class NgxFixedColumnTableComponent implements AfterViewInit {
     width: 0,
     marginLeft: 0,
   };
+  private fixedColumns: number = 0;
 
   @ViewChildren('columnRef') columnRef: QueryList<ElementRef>;
   @ViewChild('fixedHeaderWrapperRef') fixedHeaderWrapperRef: ElementRef;
@@ -99,7 +102,16 @@ export class NgxFixedColumnTableComponent implements AfterViewInit {
 
   constructor() {}
 
-  ngAfterViewInit() {}
+  ngOnInit() {
+    this.fixedColumns = this.config.columns.filter(
+      (column: INgxSimpleTableColumn) => column?.fixed
+    ).length;
+    console.log(this.fixedColumns);
+  }
+
+  ngAfterViewInit() {
+    console.log(this.tableRef);
+  }
 
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: any) {
@@ -112,6 +124,7 @@ export class NgxFixedColumnTableComponent implements AfterViewInit {
 
   @HostListener('document:scroll', ['$event'])
   public onWindowScroll(event: any) {
+    if (!this.tableRef) return;
     const tableElement = this.tableRef.nativeElement as HTMLTableElement;
     // scrollbar wrapper
     const contentBottomEdge =

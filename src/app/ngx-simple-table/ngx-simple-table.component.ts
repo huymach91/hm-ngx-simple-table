@@ -107,6 +107,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
 
   @HostListener('document:scroll', ['$event'])
   public onWindowScroll(event: any) {
+    if (!this.tableRef) return;
     const tableElement = this.tableRef.nativeElement as HTMLTableElement;
     // scrollbar wrapper
     const contentBottomEdge =
