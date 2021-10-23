@@ -333,4 +333,8 @@ export class NgxSimpleTableComponent implements AfterViewInit {
       ...tableChecked,
     });
   }
+
+  public onResize() {
+    this.fitSizeFixedHeader();
+  }
 }
