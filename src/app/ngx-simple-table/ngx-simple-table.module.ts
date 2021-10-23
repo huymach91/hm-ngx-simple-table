@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { NgxSimpleTableComponent } from './ngx-simple-table.component';
 import { ResizableColumnDirective } from './rezisable-column.direcitve';
 import { NgxFixedScrollbarComponent } from './ngx-fixed-scrollbar.component';
+import { NgxFixedColumnTableComponent } from './ngx-fixed-column-table.component';
 
 @NgModule({
   declarations: [
@@ -12,9 +13,10 @@ import { NgxFixedScrollbarComponent } from './ngx-fixed-scrollbar.component';
     PagesComponent,
     ResizableColumnDirective,
     NgxFixedScrollbarComponent,
+    NgxFixedColumnTableComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  exports: [NgxSimpleTableComponent],
+  exports: [NgxSimpleTableComponent, NgxFixedColumnTableComponent],
   providers: [],
 })
 export class NgxSimpleTableModule {}
