@@ -131,7 +131,11 @@
 }
 
 .scroller {
-  position: absolute;
+  overflow-x: hidden;
+}
+
+.fixed-column {
   left: 0;
+  position: absolute;
   top: auto;
 }

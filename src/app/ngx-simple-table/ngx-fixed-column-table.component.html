@@ -114,7 +114,7 @@
                 <th
                   #columnRef
                   *ngFor="let column of config.columns"
-                  [ngClass]="{ '.fixed-column': column?.fixed }"
+                  [ngClass]="{ 'fixed-column': column?.fixed }"
                   [hidden]="hideColumns[column.prop]"
                 >
                   <div class="column-title" (click)="onSort(column.prop)">
