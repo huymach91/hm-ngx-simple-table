@@ -153,8 +153,10 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
           );
           columns.forEach((column: HTMLElement, index: number, self) => {
             const rect = thRects[index] as { width: number; height: number };
-            column.style.setProperty('width', rect.width + 'px'); // same width with th
-            column.style.setProperty('height', rect.height + 'px'); // same width with th
+            const width = rect.width.toFixed(2) + 'px';
+            const height = rect.height.toFixed(2) + 'px';
+            column.style.setProperty('width', width); // same width with th
+            column.style.setProperty('height', height); // same width with th
             let totalWidth = 0;
             for (let i = 0; i < index; i++) {
               const rect = (columns[i] as HTMLElement).getBoundingClientRect();
