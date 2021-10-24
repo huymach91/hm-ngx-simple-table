@@ -137,22 +137,32 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         const left = index === 0 ? 0 : totalWidth;
         column.style.setProperty('left', left + 'px');
       });
-    });
-
-    this.rowRef.changes.subscribe(() => {
-      const rows = this.rowRef.toArray();
-      rows.forEach((row) => {
-        const columns = (row.nativeElement as HTMLElement).querySelectorAll(
-          '.fixed-column'
-        );
-        columns.forEach((column: HTMLElement, index: number, self) => {
-          let totalWidth = 0;
-          for (let i = 0; i < index; i++) {
-            const rect = (columns[i] as HTMLElement).getBoundingClientRect();
-            totalWidth += +rect.width.toFixed(2);
-          }
-          const left = index === 0 ? 0 : totalWidth;
-          column.style.setProperty('left', left + 'px');
+      // th widths
+      const thRects = columns.map((column) => {
+        const rect = (
+          column.nativeElement as HTMLElement
+        ).getBoundingClientRect();
+        return rect;
+      });
+      // tr body
+      this.rowRef.changes.subscribe(() => {
+        const rows = this.rowRef.toArray();
+        rows.forEach((row) => {
+          const columns = (row.nativeElement as HTMLElement).querySelectorAll(
+            '.fixed-column'
+          );
+          columns.forEach((column: HTMLElement, index: number, self) => {
+            const rect = thRects[index] as { width: number; height: number };
+            column.style.setProperty('width', rect.width + 'px'); // same width with th
+            column.style.setProperty('height', rect.height + 'px'); // same width with th
+            let totalWidth = 0;
+            for (let i = 0; i < index; i++) {
+              const rect = (columns[i] as HTMLElement).getBoundingClientRect();
+              totalWidth += +rect.width.toFixed(2);
+            }
+            const left = index === 0 ? 0 : totalWidth;
+            column.style.setProperty('left', left + 'px');
+          });
         });
       });
     });
