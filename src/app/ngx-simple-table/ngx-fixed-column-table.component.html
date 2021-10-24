@@ -90,100 +90,105 @@
       </div>
     </div>
   </div>
-  <ngx-fixed-scrollbar #ngxFixedScrollbar (onScroll)="onScrollX($event)">
-    <ng-container content>
-      <table
-        #tableRef
-        resizable-column
-        (onChange)="onResize()"
-        class="simple-table {{ config.tableClass }}"
-        border="1"
-      >
-        <thead *ngIf="config.columns.length">
-          <tr class="bg-whitesmoke">
-            <th class="text-center" #columnRef>
-              <input
-                class="check-all-item"
-                type="checkbox"
-                (change)="onCheckAll(pageChecked)"
-                [(ngModel)]="pageChecked"
-              />
-            </th>
-            <th
-              #columnRef
-              *ngFor="let column of config.columns"
-              [hidden]="hideColumns[column.prop]"
-            >
-              <div class="column-title" (click)="onSort(column.prop)">
-                {{ column['title'] }}
-              </div>
-              <span class="sort" (click)="onSort(column.prop)">
-                <span
-                  title="asc"
-                  *ngIf="
-                    !icons.sortAsc &&
-                    sort.key === column.prop &&
-                    !sort.descending
-                  "
-                  >&#8593;</span
+  <div>
+    <div></div>
+    <div>
+      <ngx-fixed-scrollbar #ngxFixedScrollbar (onScroll)="onScrollX($event)">
+        <ng-container content>
+          <table
+            #tableRef
+            resizable-column
+            (onChange)="onResize()"
+            class="simple-table {{ config.tableClass }}"
+            border="1"
+          >
+            <thead *ngIf="config.columns.length">
+              <tr class="bg-whitesmoke">
+                <th class="text-center" #columnRef>
+                  <input
+                    class="check-all-item"
+                    type="checkbox"
+                    (change)="onCheckAll(pageChecked)"
+                    [(ngModel)]="pageChecked"
+                  />
+                </th>
+                <th
+                  #columnRef
+                  *ngFor="let column of config.columns"
+                  [hidden]="hideColumns[column.prop]"
                 >
-                <i
-                  title="asc"
-                  class="{{ icons.sortAsc }}"
-                  *ngIf="
-                    icons.sortAsc &&
-                    sort.key === column.prop &&
-                    !sort.descending
-                  "
-                ></i>
-                <span
-                  title="desc"
-                  *ngIf="
-                    !icons.sortDesc &&
-                    sort.key === column.prop &&
-                    sort.descending
-                  "
-                  >&#8595;</span
-                >
-                <i
-                  title="desc"
-                  class="{{ icons.sortDesc }}"
-                  *ngIf="
-                    icons.sortDesc &&
-                    sort.key === column.prop &&
-                    sort.descending
-                  "
-                ></i>
-              </span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of data">
-            <td class="checkbox-column">
-              <input
-                class="check-item"
-                type="checkbox"
-                (change)="
-                  onCheckItem({
-                    id: item.id,
-                    checked: $event.target['checked']
-                  })
-                "
-                [checked]="isItemChecked(item.id)"
-              />
-            </td>
+                  <div class="column-title" (click)="onSort(column.prop)">
+                    {{ column['title'] }}
+                  </div>
+                  <span class="sort" (click)="onSort(column.prop)">
+                    <span
+                      title="asc"
+                      *ngIf="
+                        !icons.sortAsc &&
+                        sort.key === column.prop &&
+                        !sort.descending
+                      "
+                      >&#8593;</span
+                    >
+                    <i
+                      title="asc"
+                      class="{{ icons.sortAsc }}"
+                      *ngIf="
+                        icons.sortAsc &&
+                        sort.key === column.prop &&
+                        !sort.descending
+                      "
+                    ></i>
+                    <span
+                      title="desc"
+                      *ngIf="
+                        !icons.sortDesc &&
+                        sort.key === column.prop &&
+                        sort.descending
+                      "
+                      >&#8595;</span
+                    >
+                    <i
+                      title="desc"
+                      class="{{ icons.sortDesc }}"
+                      *ngIf="
+                        icons.sortDesc &&
+                        sort.key === column.prop &&
+                        sort.descending
+                      "
+                    ></i>
+                  </span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of data">
+                <td class="checkbox-column">
+                  <input
+                    class="check-item"
+                    type="checkbox"
+                    (change)="
+                      onCheckItem({
+                        id: item.id,
+                        checked: $event.target['checked']
+                      })
+                    "
+                    [checked]="isItemChecked(item.id)"
+                  />
+                </td>
 
-            <ng-container *ngFor="let column of config.columns">
-              <td [hidden]="hideColumns[column.prop]">
-                {{ item[column.prop] }}
-              </td>
-            </ng-container>
-          </tr>
-        </tbody>
-      </table>
-    </ng-container>
-  </ngx-fixed-scrollbar>
+                <ng-container *ngFor="let column of config.columns">
+                  <td [hidden]="hideColumns[column.prop]">
+                    {{ item[column.prop] }}
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+      </ngx-fixed-scrollbar>
+    </div>
+  </div>
 
   <pages
     [currentPage]="currentPage"
