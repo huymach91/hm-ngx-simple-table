@@ -145,6 +145,15 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         const columns = (row.nativeElement as HTMLElement).querySelectorAll(
           '.fixed-column'
         );
+        columns.forEach((column: HTMLElement, index: number, self) => {
+          let totalWidth = 0;
+          for (let i = 0; i < index; i++) {
+            const rect = (columns[i] as HTMLElement).getBoundingClientRect();
+            totalWidth += +rect.width.toFixed(2);
+          }
+          const left = index === 0 ? 0 : totalWidth;
+          column.style.setProperty('left', left + 'px');
+        });
       });
     });
   }
