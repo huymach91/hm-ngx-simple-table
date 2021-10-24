@@ -144,6 +144,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         ).getBoundingClientRect();
         return rect;
       });
+      console.log(thRects);
       // tr body
       this.rowRef.changes.subscribe(() => {
         const rows = this.rowRef.toArray();
