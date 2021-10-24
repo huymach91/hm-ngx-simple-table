@@ -90,8 +90,23 @@
       </div>
     </div>
   </div>
-  <div>
-    <div></div>
+  <div class="main-content">
+    <!-- <table class="simple-table {{ config.tableClass }}">
+      <thead>
+        <tr>
+          <th *ngFor="let column of fixedColumns">{{ column.title }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data">
+          <ng-container *ngFor="let column of config.columns">
+            <td [hidden]="hideColumns[column.prop]">
+              {{ item[column.prop] }}
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table> -->
     <div>
       <ngx-fixed-scrollbar #ngxFixedScrollbar (onScroll)="onScrollX($event)">
         <ng-container content>

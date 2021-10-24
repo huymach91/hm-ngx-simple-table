@@ -27,7 +27,7 @@ enum SORT_PARAM {
 @Component({
   selector: 'ngx-fixed-column-table',
   templateUrl: './ngx-fixed-column-table.component.html',
-  styleUrls: ['./ngx-simple-table.component.scss'],
+  styleUrls: ['./ngx-fixed-column-table.component.scss'],
 })
 export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
   @Input() config: INgxSimpleTableConfig = {
@@ -88,7 +88,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     width: '',
     marginLeft: '',
   };
-  private fixedColumns: Array<INgxSimpleTableColumn>;
+  public fixedColumns: Array<INgxSimpleTableColumn> = [];
 
   @ViewChildren('columnRef') columnRef: QueryList<ElementRef>;
   @ViewChild('fixedHeaderWrapperRef') fixedHeaderWrapperRef: ElementRef;
@@ -105,6 +105,9 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.fixedColumns = this.config.columns.filter((column) => column?.fixed);
+    this.config.columns = this.config.columns.filter(
+      (column) => !column?.fixed
+    );
   }
 
   ngAfterViewInit() {}
