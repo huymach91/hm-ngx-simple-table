@@ -27,7 +27,7 @@ enum SORT_PARAM {
 @Component({
   selector: 'ngx-fixed-column-table',
   templateUrl: './ngx-fixed-column-table.component.html',
-  styleUrls: ['./ngx-fixed-column-table.component.scss'],
+  styleUrls: ['./ngx-simple-table.component.scss'],
 })
 export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
   @Input() config: INgxSimpleTableConfig = {
@@ -88,9 +88,10 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     width: '',
     marginLeft: '',
   };
-  public fixedColumns: Array<INgxSimpleTableColumn> = [];
+  private fixedColumns: Array<INgxSimpleTableColumn>;
 
   @ViewChildren('columnRef') columnRef: QueryList<ElementRef>;
+  @ViewChildren('rowRef') rowRef: QueryList<ElementRef>;
   @ViewChild('fixedHeaderWrapperRef') fixedHeaderWrapperRef: ElementRef;
   @ViewChildren('fixedColumnHeaderRef')
   fixedColumnHeaderRef: QueryList<ElementRef>;
@@ -105,12 +106,48 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.fixedColumns = this.config.columns.filter((column) => column?.fixed);
-    this.config.columns = this.config.columns.filter(
-      (column) => !column?.fixed
-    );
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    this.columnRef.changes.subscribe(() => {
+      const columns = this.columnRef.filter((columnRef) =>
+        (columnRef.nativeElement as HTMLElement).className.includes(
+          'fixed-column'
+        )
+      );
+      // calculate scroller's style
+      this.scrollerStyle.marginLeft =
+        columns.reduce((acc: number, columnRef: ElementRef) => {
+          const rect = columnRef.nativeElement.getBoundingClientRect();
+          return acc + +rect.width.toFixed(2);
+        }, 0) + 'px';
+
+      this.scrollerStyle.width =
+        'calc(100% - ' + this.scrollerStyle.marginLeft + ')';
+      // fixed column's position
+      columns.forEach((columnRef: ElementRef, index: number, self) => {
+        const column = columnRef.nativeElement as HTMLDivElement;
+        let totalWidth = 0;
+        for (let i = 0; i < index; i++) {
+          const rect = (
+            columns[i].nativeElement as HTMLElement
+          ).getBoundingClientRect();
+          totalWidth += +rect.width.toFixed(2);
+        }
+        const left = index === 0 ? 0 : totalWidth;
+        column.style.setProperty('left', left + 'px');
+      });
+    });
+
+    this.rowRef.changes.subscribe(() => {
+      const rows = this.rowRef.toArray();
+      rows.forEach((row) => {
+        const columns = (row.nativeElement as HTMLElement).querySelectorAll(
+          '.fixed-column'
+        );
+      });
+    });
+  }
 
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: any) {

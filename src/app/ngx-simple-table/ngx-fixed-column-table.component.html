@@ -90,24 +90,8 @@
       </div>
     </div>
   </div>
-  <div class="main-content">
-    <!-- <table class="simple-table {{ config.tableClass }}">
-      <thead>
-        <tr>
-          <th *ngFor="let column of fixedColumns">{{ column.title }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of data">
-          <ng-container *ngFor="let column of config.columns">
-            <td [hidden]="hideColumns[column.prop]">
-              {{ item[column.prop] }}
-            </td>
-          </ng-container>
-        </tr>
-      </tbody>
-    </table> -->
-    <div>
+  <div class="wrapper">
+    <div class="scroller" #scrollerRef [ngStyle]="scrollerStyle">
       <ngx-fixed-scrollbar #ngxFixedScrollbar (onScroll)="onScrollX($event)">
         <ng-container content>
           <table
@@ -119,7 +103,7 @@
           >
             <thead *ngIf="config.columns.length">
               <tr class="bg-whitesmoke">
-                <th class="text-center" #columnRef>
+                <th #columnRef class="text-center">
                   <input
                     class="check-all-item"
                     type="checkbox"
@@ -130,6 +114,7 @@
                 <th
                   #columnRef
                   *ngFor="let column of config.columns"
+                  [ngClass]="{ 'fixed-column': column?.fixed }"
                   [hidden]="hideColumns[column.prop]"
                 >
                   <div class="column-title" (click)="onSort(column.prop)">
@@ -193,7 +178,10 @@
                 </td>
 
                 <ng-container *ngFor="let column of config.columns">
-                  <td [hidden]="hideColumns[column.prop]">
+                  <td
+                    [hidden]="hideColumns[column.prop]"
+                    [ngClass]="{ 'fixed-column': column?.fixed }"
+                  >
                     {{ item[column.prop] }}
                   </td>
                 </ng-container>

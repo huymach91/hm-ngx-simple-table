@@ -126,6 +126,15 @@
   color: rgb(16, 150, 16);
 }
 
-.main-content {
-  display: flex;
+.wrapper {
+  position: relative;
+}
+
+.scroller {
+  overflow-x: hidden;
+}
+
+.fixed-column {
+  position: absolute !important;
+  top: auto;
 }
