@@ -85,8 +85,8 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
   public hideColumns = {};
 
   public scrollerStyle = {
-    width: 0,
-    marginLeft: 0,
+    width: '',
+    marginLeft: '',
   };
   private fixedColumns: Array<INgxSimpleTableColumn>;
 
@@ -99,6 +99,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
   @ViewChild('ngxFixedScrollbar') ngxFixedScrollbar: NgxFixedScrollbarComponent;
   @ViewChild('selectAllWrapperRef') selectAllWrapperRef: ElementRef;
   @ViewChild('columnSelectorRef') columnSelectorRef: ElementRef;
+  @ViewChild('scrollerRef') scrollerRef: ElementRef;
 
   constructor() {}
 
@@ -106,14 +107,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     this.fixedColumns = this.config.columns.filter((column) => column?.fixed);
   }
 
-  ngAfterViewInit() {
-    this.columnRef.changes.subscribe(() => {
-      const columns = this.columnRef.filter((column) =>
-        (column.nativeElement as HTMLElement).className.includes('fixed-column')
-      );
-      console.log(columns);
-    });
-  }
+  ngAfterViewInit() {}
 
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: any) {

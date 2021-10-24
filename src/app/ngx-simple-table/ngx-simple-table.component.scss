@@ -125,17 +125,3 @@
 .text-green {
   color: rgb(16, 150, 16);
 }
-
-.wrapper {
-  position: relative;
-}
-
-.scroller {
-  overflow-x: hidden;
-}
-
-.fixed-column {
-  left: 0;
-  position: absolute !important;
-  top: auto;
-}
