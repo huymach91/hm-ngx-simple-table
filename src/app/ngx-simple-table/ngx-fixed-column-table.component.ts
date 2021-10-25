@@ -430,7 +430,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
           .reduce((acc: number, cur) => {
             return acc + cur;
           }, 0) + 'px';
-
+      console.log('maxSizeRects', maxSizeRects);
       this.scrollerStyle.width =
         'calc(100% - ' + this.scrollerStyle.marginLeft + ')';
       // fixed column's position
