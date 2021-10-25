@@ -39,7 +39,7 @@
   position: fixed;
   top: 0;
   z-index: 3;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .fixed-header-inner {
@@ -140,9 +140,6 @@
 }
 
 .fixed-column-table {
-  border-left: none;
-  border-top: none;
-  border-bottom: none;
 }
 
 .fixed-column-table {

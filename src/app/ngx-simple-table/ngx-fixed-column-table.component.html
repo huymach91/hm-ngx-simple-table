@@ -43,7 +43,7 @@
   </pages>
   <div class="fixed-header-wrapper" #fixedHeaderWrapperRef>
     <div class="fixed-header-inner bg-whitesmoke" #fixedHeaderInnerRef>
-      <div class="chb text-center" #fixedColumnHeaderRef>
+      <div class="chb text-center" #fixedColumnHeaderRef [hidden]="true">
         <input
           class="check-all-item"
           type="checkbox"
@@ -56,7 +56,7 @@
         #fixedColumnHeaderRef
         *ngFor="let column of config.columns"
         (click)="onSort(column.prop)"
-        [hidden]="hideColumns[column.prop]"
+        [hidden]="hideColumns[column.prop] || column.fixed"
       >
         <div class="column-title">{{ column['title'] }}</div>
         <span class="sort">

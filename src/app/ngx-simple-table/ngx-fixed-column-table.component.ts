@@ -137,9 +137,11 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     const viewPortBottomEgde = window.scrollY + window.innerHeight;
     // stop fixed header
     this.stopFixedHeader();
+    console.log('stop', tableRect.y, window.scrollY, viewPortBottomEgde);
     // case 1: viewport's top edge is scrolled over element's top edge
     // case 2: viewport's bottom edge touched element's bottom edge
-    if (tableRect.y <= 0 && window.scrollY < contentBottomEdge) {
+    if (tableRect.y <= 0) {
+      console.log('start header');
       this.startFixedHeader();
     }
 
@@ -293,18 +295,24 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     const tableElement = this.tableRef.nativeElement as HTMLDivElement;
     const fixedHeaderInner = this.fixedHeaderInnerRef
       .nativeElement as HTMLDivElement;
+    const diff = 7;
     fixedHeaderInner.style.setProperty(
       'width',
       tableElement.offsetWidth + 'px'
     );
     fixedHeaderWrapper.style.setProperty('width', contentWidth + 'px');
+    fixedHeaderWrapper.style.setProperty(
+      'left',
+      tableElement.offsetLeft + diff + 'px'
+    );
     const columnElements = this.columnRef.map((c) => c.nativeElement);
     columnElements.forEach((columnElement: HTMLElement, index: number) => {
       const columnComputedStyle = window.getComputedStyle(columnElement);
       const fixedHeaderColumnRef = this.fixedColumnHeaderRef.toArray()[index];
       const fixedHeaderColumn =
         fixedHeaderColumnRef.nativeElement as HTMLDivElement;
-      fixedHeaderColumn.style.setProperty('width', columnComputedStyle.width);
+      const width = columnElement.offsetWidth;
+      fixedHeaderColumn.style.setProperty('width', width + 'px');
       fixedHeaderColumn.style.setProperty('height', columnComputedStyle.height);
       fixedHeaderColumn.style.setProperty(
         'border-left',
