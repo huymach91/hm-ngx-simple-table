@@ -304,6 +304,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
       'width',
       tableElement.offsetWidth + 'px'
     );
+    fixedHeaderInner.style.setProperty('padding-right', '2px');
     fixedHeaderWrapper.style.setProperty('width', contentWidth + 'px');
     fixedHeaderWrapper.style.setProperty(
       'left',
@@ -377,11 +378,10 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
 
   private fitFixedCells() {
     this.columnRef.changes.subscribe(() => {
-      const columns = this.columnRef.filter((columnRef) =>
-        (columnRef.nativeElement as HTMLElement).className.includes(
-          'fixed-column'
-        )
-      );
+      const columns = this.columnRef.filter((columnRef) => {
+        const column = columnRef.nativeElement as HTMLElement;
+        return column.className.includes('fixed-column');
+      });
       // th width, height
       const thRects = columns.map((column) => {
         const rect = (
@@ -464,6 +464,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
           totalWidth += +maxSizeRects[i].width;
         }
         const left = index === 0 ? 0 : totalWidth;
+        column.classList.add('bg-whitesmoke');
         column.style.setProperty('left', left + 'px');
         column.style.setProperty('width', maxSizeRects[index].width + 'px');
         column.style.setProperty('height', maxSizeRects[index].height + 'px');
