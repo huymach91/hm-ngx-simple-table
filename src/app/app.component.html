@@ -34,18 +34,6 @@
     sort:
     <pre>{{ sort | json }}</pre>
   </div>
-  <ngx-fixed-column-table
-    [config]="fixedColumnTableConfig"
-    [data]="data"
-    [icons]="icons"
-    [totalRecord]="pagination.totalRecord"
-    [currentPage]="pagination.currentPage"
-    [pageSize]="pagination.pageSize"
-    (onChecked)="onChecked($event)"
-    (onSort)="onSort($event)"
-    (onChangePaginator)="onChangePaginator($event)"
-  >
-  </ngx-fixed-column-table>
 
   <div class="margin"></div>
 </div>

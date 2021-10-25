@@ -1,0 +1,12 @@
+<ngx-fixed-column-table
+  [config]="fixedColumnTableConfig"
+  [data]="data"
+  [icons]="icons"
+  [totalRecord]="pagination2.totalRecord"
+  [currentPage]="pagination2.currentPage"
+  [pageSize]="pagination2.pageSize"
+  (onChecked)="onChecked($event)"
+  (onSort)="onSort($event)"
+  (onChangePaginator)="onChangePaginator($event)"
+>
+</ngx-fixed-column-table>
