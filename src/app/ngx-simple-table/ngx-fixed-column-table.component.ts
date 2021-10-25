@@ -141,7 +141,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     console.log('stop', tableRect.y, window.scrollY, viewPortBottomEgde);
     // case 1: viewport's top edge is scrolled over element's top edge
     // case 2: viewport's bottom edge touched element's bottom edge
-    if (tableRect.y <= 0) {
+    if (tableRect.y <= 0 && window.scrollY < contentBottomEdge) {
       console.log('start header');
       this.startFixedHeader();
     }
