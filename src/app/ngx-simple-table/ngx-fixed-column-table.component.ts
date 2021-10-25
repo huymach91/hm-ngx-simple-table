@@ -139,9 +139,11 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
       });
       // th widths
       columns.forEach((column, i) => {
-        const maxWidths = (
+        const bodyFixedCells = (
           this.tableRef.nativeElement as HTMLTableElement
         ).querySelectorAll('.fixed-column-' + i);
+        const widths = Array.from(bodyFixedCells);
+        console.log(widths);
       });
       const thRects = columns.map((column) => {
         const rect = (

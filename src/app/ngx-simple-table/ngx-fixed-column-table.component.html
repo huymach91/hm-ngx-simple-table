@@ -115,7 +115,7 @@
                   #columnRef
                   *ngFor="let column of config.columns; let i = index"
                   [ngClass]="{ 'fixed-column': column?.fixed }"
-                  class="{{ 'fixed-column-' + i }}"
+                  class="{{ column?.fixed ? 'fixed-column-' + i : '' }}"
                   [hidden]="hideColumns[column.prop]"
                 >
                   <div class="column-title" (click)="onSort(column.prop)">
@@ -178,10 +178,12 @@
                   />
                 </td>
 
-                <ng-container *ngFor="let column of config.columns">
+                <ng-container
+                  *ngFor="let column of config.columns; let i = index"
+                >
                   <td
                     [hidden]="hideColumns[column.prop]"
-                    class="{{ 'fixed-column-' + i }}"
+                    class="{{ column?.fixed ? 'fixed-column-' + i : '' }}"
                     [ngClass]="{ 'fixed-column': column?.fixed }"
                   >
                     {{ item[column.prop] }}
