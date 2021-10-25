@@ -296,7 +296,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     const tableElement = this.tableRef.nativeElement as HTMLDivElement;
     const fixedHeaderInner = this.fixedHeaderInnerRef
       .nativeElement as HTMLDivElement;
-    const diff = 8;
+    const diff = 3;
 
     fixedHeaderInner.style.setProperty(
       'width',
@@ -432,6 +432,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
             column.style.setProperty('height', height); // same width with th
             column.style.setProperty('overflow', 'hidden');
             column.style.setProperty('whitespace', 'nowrap');
+            column.style.setProperty('text-overflow', 'ellipsis');
             let totalWidth = 0;
             for (let i = 0; i < index; i++) {
               const rect = (columns[i] as HTMLElement).getBoundingClientRect();
