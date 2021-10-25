@@ -304,6 +304,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
       'width',
       tableElement.offsetWidth + 'px'
     );
+    // 2px of this padding due to the table has 2px on the left when moving fixed columns to left side, this create an extra 2px scrollLeft;
     fixedHeaderInner.style.setProperty('padding-right', '2px');
     fixedHeaderWrapper.style.setProperty('width', contentWidth + 'px');
     fixedHeaderWrapper.style.setProperty(
