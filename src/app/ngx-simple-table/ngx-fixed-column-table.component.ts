@@ -112,6 +112,11 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     this.fitFixedCells();
   }
 
+  @HostListener('window:resize', ['$event'])
+  public onWindowResize(event: any) {
+    console.log('asdasd');
+  }
+
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: any) {
     const columnSelector = this.columnSelectorRef
@@ -412,6 +417,8 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
             const height = rect.height + 'px';
             column.style.setProperty('width', width); // same width with th
             column.style.setProperty('height', height); // same width with th
+            column.style.setProperty('overflow', 'hidden');
+            column.style.setProperty('whitespace', 'nowrap');
             let totalWidth = 0;
             for (let i = 0; i < index; i++) {
               const rect = (columns[i] as HTMLElement).getBoundingClientRect();
@@ -422,15 +429,15 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
           });
         });
       });
-
       // calculate scroller's style
       this.scrollerStyle.marginLeft =
-        maxSizeRects
-          .map((size) => size.width)
-          .reduce((acc: number, cur) => {
-            return acc + cur;
-          }, 0) + 'px';
-      console.log('maxSizeRects', maxSizeRects);
+        Math.round(
+          maxSizeRects
+            .map((size) => size.width)
+            .reduce((acc: number, cur) => {
+              return acc + cur;
+            }, 0)
+        ) + 'px';
       this.scrollerStyle.width =
         'calc(100% - ' + this.scrollerStyle.marginLeft + ')';
       // fixed column's position
@@ -443,6 +450,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         const left = index === 0 ? 0 : totalWidth;
         column.style.setProperty('left', left + 'px');
         column.style.setProperty('width', maxSizeRects[index].width + 'px');
+        column.style.setProperty('height', maxSizeRects[index].height + 'px');
       });
     });
   }

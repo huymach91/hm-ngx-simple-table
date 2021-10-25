@@ -98,12 +98,12 @@
             #tableRef
             resizable-column
             (onChange)="onResize()"
-            class="simple-table {{ config.tableClass }}"
+            class="simple-table fixed-column-table {{ config.tableClass }}"
             border="1"
           >
             <thead *ngIf="config.columns.length">
               <tr class="bg-whitesmoke">
-                <th #columnRef class="text-center">
+                <th #columnRef class="text-center fixed-column fixed-column-0">
                   <input
                     class="check-all-item"
                     type="checkbox"
@@ -115,7 +115,7 @@
                   #columnRef
                   *ngFor="let column of config.columns; let i = index"
                   [ngClass]="{ 'fixed-column': column?.fixed }"
-                  class="{{ column?.fixed ? 'fixed-column-' + i : '' }}"
+                  class="{{ column?.fixed ? 'fixed-column-' + (i + 1) : '' }}"
                   [hidden]="hideColumns[column.prop]"
                 >
                   <div class="column-title" (click)="onSort(column.prop)">
@@ -164,7 +164,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of data" #rowRef>
-                <td class="checkbox-column">
+                <td class="checkbox-column fixed-column fixed-column-0">
                   <input
                     class="check-item"
                     type="checkbox"
@@ -183,10 +183,13 @@
                 >
                   <td
                     [hidden]="hideColumns[column.prop]"
-                    class="{{ column?.fixed ? 'fixed-column-' + i : '' }}"
+                    class="{{ column?.fixed ? 'fixed-column-' + (i + 1) : '' }}"
                     [ngClass]="{ 'fixed-column': column?.fixed }"
                   >
-                    {{ item[column.prop] }}
+                    <span *ngIf="item[column.prop]">{{
+                      item[column.prop]
+                    }}</span>
+                    <span *ngIf="!item[column.prop]">&nbsp;</span>
                   </td>
                 </ng-container>
               </tr>

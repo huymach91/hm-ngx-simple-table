@@ -8,8 +8,9 @@ for (let i = 1; i <= TOTAL_RECORD; i++) {
   const age = Math.round(Math.random() * 10);
   FAKE_DATA.push({
     id: i,
-    name: 'Sample ' + i,
+    name: 'Lorem Ipsum is simply dummy ' + i,
     age: age,
+    grade: '',
   });
 }
 

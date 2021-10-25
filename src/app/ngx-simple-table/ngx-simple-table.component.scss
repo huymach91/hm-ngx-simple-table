@@ -138,3 +138,17 @@
   position: absolute !important;
   top: auto;
 }
+
+.fixed-column-table {
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+}
+
+.fixed-column-table {
+  td,
+  th {
+    padding-left: 10px !important;
+    padding-right: 15px !important;
+  }
+}
