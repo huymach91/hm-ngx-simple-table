@@ -115,6 +115,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
   @HostListener('window:resize', ['$event'])
   public onWindowResize(event: any) {
     this.fitFixedCells();
+    this.fitSizeFixedHeader();
   }
 
   @HostListener('document:click', ['$event'])
@@ -295,7 +296,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     const tableElement = this.tableRef.nativeElement as HTMLDivElement;
     const fixedHeaderInner = this.fixedHeaderInnerRef
       .nativeElement as HTMLDivElement;
-    const diff = 7.5;
+    const diff = 7;
 
     fixedHeaderInner.style.setProperty(
       'width',
