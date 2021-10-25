@@ -138,6 +138,11 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         column.style.setProperty('left', left + 'px');
       });
       // th widths
+      columns.forEach((column, i) => {
+        const maxWidths = (
+          this.tableRef.nativeElement as HTMLTableElement
+        ).querySelectorAll('.fixed-column-' + i);
+      });
       const thRects = columns.map((column) => {
         const rect = (
           column.nativeElement as HTMLElement
