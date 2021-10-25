@@ -109,95 +109,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.columnRef.changes.subscribe(() => {
-      const columns = this.columnRef.filter((columnRef) =>
-        (columnRef.nativeElement as HTMLElement).className.includes(
-          'fixed-column'
-        )
-      );
-      // th width, height
-      const thRects = columns.map((column) => {
-        const rect = (
-          column.nativeElement as HTMLElement
-        ).getBoundingClientRect();
-        return {
-          width: +rect.width.toFixed(2),
-          height: +rect.height.toFixed(2),
-        };
-      });
-      // find max width, height of fixed cells
-      let maxSizeRects: Array<{ width: number; height: number }> = [];
-      columns.forEach((column, i) => {
-        const bodyFixedCells = (
-          this.tableRef.nativeElement as HTMLTableElement
-        ).querySelectorAll('.fixed-column-' + i);
-        const thRect = thRects[i];
-        maxSizeRects.push({
-          width: Math.max(
-            ...Array.from(bodyFixedCells).map((cell) => {
-              const cellRect = cell.getBoundingClientRect();
-              return +cellRect.width.toFixed(2);
-            }),
-            thRect.width
-          ),
-          height: Math.max(
-            ...Array.from(bodyFixedCells).map((cell) => {
-              const cellRect = cell.getBoundingClientRect();
-              return +cellRect.height.toFixed(2);
-            }),
-            thRect.height
-          ),
-        });
-      });
-      // tr body
-      this.rowRef.changes.subscribe(() => {
-        const rows = this.rowRef.toArray();
-        rows.forEach((row) => {
-          const columns = (row.nativeElement as HTMLElement).querySelectorAll(
-            '.fixed-column'
-          );
-          columns.forEach((column: HTMLElement, index: number, self) => {
-            const rect = maxSizeRects[index] as {
-              width: number;
-              height: number;
-            };
-            const width = rect.width + 'px';
-            const height = rect.height + 'px';
-            column.style.setProperty('width', width); // same width with th
-            column.style.setProperty('height', height); // same width with th
-            let totalWidth = 0;
-            for (let i = 0; i < index; i++) {
-              const rect = (columns[i] as HTMLElement).getBoundingClientRect();
-              totalWidth += +rect.width.toFixed(2);
-            }
-            const left = index === 0 ? 0 : totalWidth;
-            column.style.setProperty('left', left + 'px');
-          });
-        });
-      });
-
-      // calculate scroller's style
-      this.scrollerStyle.marginLeft =
-        maxSizeRects
-          .map((size) => size.width)
-          .reduce((acc: number, cur) => {
-            return acc + cur;
-          }, 0) + 'px';
-
-      this.scrollerStyle.width =
-        'calc(100% - ' + this.scrollerStyle.marginLeft + ')';
-      // fixed column's position
-      columns.forEach((columnRef: ElementRef, index: number, self) => {
-        const column = columnRef.nativeElement as HTMLDivElement;
-        let totalWidth = 0;
-        for (let i = 0; i < index; i++) {
-          totalWidth += +maxSizeRects[i].width;
-        }
-        const left = index === 0 ? 0 : totalWidth;
-        column.style.setProperty('left', left + 'px');
-        column.style.setProperty('width', maxSizeRects[index].width + 'px');
-      });
-    });
+    this.fitFixedCells();
   }
 
   @HostListener('document:click', ['$event'])
@@ -441,5 +353,97 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
 
   public onResize() {
     this.fitSizeFixedHeader();
+  }
+
+  private fitFixedCells() {
+    this.columnRef.changes.subscribe(() => {
+      const columns = this.columnRef.filter((columnRef) =>
+        (columnRef.nativeElement as HTMLElement).className.includes(
+          'fixed-column'
+        )
+      );
+      // th width, height
+      const thRects = columns.map((column) => {
+        const rect = (
+          column.nativeElement as HTMLElement
+        ).getBoundingClientRect();
+        return {
+          width: +rect.width.toFixed(2),
+          height: +rect.height.toFixed(2),
+        };
+      });
+      // find max width, height of fixed cells
+      let maxSizeRects: Array<{ width: number; height: number }> = [];
+      columns.forEach((column, i) => {
+        const bodyFixedCells = (
+          this.tableRef.nativeElement as HTMLTableElement
+        ).querySelectorAll('.fixed-column-' + i);
+        const thRect = thRects[i];
+        maxSizeRects.push({
+          width: Math.max(
+            ...Array.from(bodyFixedCells).map((cell) => {
+              const cellRect = cell.getBoundingClientRect();
+              return +cellRect.width.toFixed(2);
+            }),
+            thRect.width
+          ),
+          height: Math.max(
+            ...Array.from(bodyFixedCells).map((cell) => {
+              const cellRect = cell.getBoundingClientRect();
+              return +cellRect.height.toFixed(2);
+            }),
+            thRect.height
+          ),
+        });
+      });
+      // tr body
+      this.rowRef.changes.subscribe(() => {
+        const rows = this.rowRef.toArray();
+        rows.forEach((row) => {
+          const columns = (row.nativeElement as HTMLElement).querySelectorAll(
+            '.fixed-column'
+          );
+          columns.forEach((column: HTMLElement, index: number, self) => {
+            const rect = maxSizeRects[index] as {
+              width: number;
+              height: number;
+            };
+            const width = rect.width + 'px';
+            const height = rect.height + 'px';
+            column.style.setProperty('width', width); // same width with th
+            column.style.setProperty('height', height); // same width with th
+            let totalWidth = 0;
+            for (let i = 0; i < index; i++) {
+              const rect = (columns[i] as HTMLElement).getBoundingClientRect();
+              totalWidth += +rect.width.toFixed(2);
+            }
+            const left = index === 0 ? 0 : totalWidth;
+            column.style.setProperty('left', left + 'px');
+          });
+        });
+      });
+
+      // calculate scroller's style
+      this.scrollerStyle.marginLeft =
+        maxSizeRects
+          .map((size) => size.width)
+          .reduce((acc: number, cur) => {
+            return acc + cur;
+          }, 0) + 'px';
+
+      this.scrollerStyle.width =
+        'calc(100% - ' + this.scrollerStyle.marginLeft + ')';
+      // fixed column's position
+      columns.forEach((columnRef: ElementRef, index: number, self) => {
+        const column = columnRef.nativeElement as HTMLDivElement;
+        let totalWidth = 0;
+        for (let i = 0; i < index; i++) {
+          totalWidth += +maxSizeRects[i].width;
+        }
+        const left = index === 0 ? 0 : totalWidth;
+        column.style.setProperty('left', left + 'px');
+        column.style.setProperty('width', maxSizeRects[index].width + 'px');
+      });
+    });
   }
 }
