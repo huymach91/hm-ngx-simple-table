@@ -115,27 +115,15 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
           'fixed-column'
         )
       );
-      // calculate scroller's style
-      this.scrollerStyle.marginLeft =
-        columns.reduce((acc: number, columnRef: ElementRef) => {
-          const rect = columnRef.nativeElement.getBoundingClientRect();
-          return acc + +rect.width.toFixed(2);
-        }, 0) + 'px';
-
-      this.scrollerStyle.width =
-        'calc(100% - ' + this.scrollerStyle.marginLeft + ')';
-      // fixed column's position
-      columns.forEach((columnRef: ElementRef, index: number, self) => {
-        const column = columnRef.nativeElement as HTMLDivElement;
-        let totalWidth = 0;
-        for (let i = 0; i < index; i++) {
-          const rect = (
-            columns[i].nativeElement as HTMLElement
-          ).getBoundingClientRect();
-          totalWidth += +rect.width.toFixed(2);
-        }
-        const left = index === 0 ? 0 : totalWidth;
-        column.style.setProperty('left', left + 'px');
+      // th width, height
+      const thRects = columns.map((column) => {
+        const rect = (
+          column.nativeElement as HTMLElement
+        ).getBoundingClientRect();
+        return {
+          width: +rect.width.toFixed(2),
+          height: +rect.height.toFixed(2),
+        };
       });
       // find max width, height of fixed cells
       let maxSizeRects: Array<{ width: number; height: number }> = [];
@@ -143,22 +131,25 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         const bodyFixedCells = (
           this.tableRef.nativeElement as HTMLTableElement
         ).querySelectorAll('.fixed-column-' + i);
+        const thRect = thRects[i];
         maxSizeRects.push({
           width: Math.max(
             ...Array.from(bodyFixedCells).map((cell) => {
               const cellRect = cell.getBoundingClientRect();
               return +cellRect.width.toFixed(2);
-            })
+            }),
+            thRect.width
           ),
           height: Math.max(
             ...Array.from(bodyFixedCells).map((cell) => {
               const cellRect = cell.getBoundingClientRect();
               return +cellRect.height.toFixed(2);
-            })
+            }),
+            thRect.height
           ),
         });
       });
-      // update width, height of fixed cells
+      // tr body
       this.rowRef.changes.subscribe(() => {
         const rows = this.rowRef.toArray();
         rows.forEach((row) => {
@@ -183,6 +174,28 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
             column.style.setProperty('left', left + 'px');
           });
         });
+      });
+
+      // calculate scroller's style
+      this.scrollerStyle.marginLeft =
+        maxSizeRects
+          .map((size) => size.width)
+          .reduce((acc: number, cur) => {
+            return acc + cur;
+          }, 0) + 'px';
+
+      this.scrollerStyle.width =
+        'calc(100% - ' + this.scrollerStyle.marginLeft + ')';
+      // fixed column's position
+      columns.forEach((columnRef: ElementRef, index: number, self) => {
+        const column = columnRef.nativeElement as HTMLDivElement;
+        let totalWidth = 0;
+        for (let i = 0; i < index; i++) {
+          totalWidth += +maxSizeRects[i].width;
+        }
+        const left = index === 0 ? 0 : totalWidth;
+        column.style.setProperty('left', left + 'px');
+        column.style.setProperty('width', maxSizeRects[index].width + 'px');
       });
     });
   }
