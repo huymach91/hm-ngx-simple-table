@@ -53,11 +53,11 @@ export class ResizableColumnDirective implements AfterViewInit {
     this.columns = this.table.querySelectorAll('thead tr th');
     this.columns.forEach((column: any, index: number) => {
       if (index === this.columns.length - 1) return;
+      const resizer = this.createResizer();
       if (!column.className.includes('fixed-column')) {
         column.style.setProperty('position', 'relative');
+        column.appendChild(resizer);
       }
-      const resizer = this.createResizer();
-      column.appendChild(resizer);
     });
   }
 
