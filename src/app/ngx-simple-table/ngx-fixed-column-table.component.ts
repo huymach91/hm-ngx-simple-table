@@ -137,22 +137,28 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         const left = index === 0 ? 0 : totalWidth;
         column.style.setProperty('left', left + 'px');
       });
-      // th widths
+      // find max width, height of fixed cells
+      let maxSizeRects: Array<{ width: number; height: number }> = [];
       columns.forEach((column, i) => {
         const bodyFixedCells = (
           this.tableRef.nativeElement as HTMLTableElement
         ).querySelectorAll('.fixed-column-' + i);
-        const widths = Array.from(bodyFixedCells);
-        console.log(widths);
+        maxSizeRects.push({
+          width: Math.max(
+            ...Array.from(bodyFixedCells).map((cell) => {
+              const cellRect = cell.getBoundingClientRect();
+              return +cellRect.width.toFixed(2);
+            })
+          ),
+          height: Math.max(
+            ...Array.from(bodyFixedCells).map((cell) => {
+              const cellRect = cell.getBoundingClientRect();
+              return +cellRect.height.toFixed(2);
+            })
+          ),
+        });
       });
-      const thRects = columns.map((column) => {
-        const rect = (
-          column.nativeElement as HTMLElement
-        ).getBoundingClientRect();
-        return rect;
-      });
-      console.log(thRects);
-      // tr body
+      // update width, height of fixed cells
       this.rowRef.changes.subscribe(() => {
         const rows = this.rowRef.toArray();
         rows.forEach((row) => {
@@ -160,9 +166,12 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
             '.fixed-column'
           );
           columns.forEach((column: HTMLElement, index: number, self) => {
-            const rect = thRects[index] as { width: number; height: number };
-            const width = rect.width.toFixed(2) + 'px';
-            const height = rect.height.toFixed(2) + 'px';
+            const rect = maxSizeRects[index] as {
+              width: number;
+              height: number;
+            };
+            const width = rect.width + 'px';
+            const height = rect.height + 'px';
             column.style.setProperty('width', width); // same width with th
             column.style.setProperty('height', height); // same width with th
             let totalWidth = 0;
