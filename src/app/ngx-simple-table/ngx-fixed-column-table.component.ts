@@ -96,6 +96,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
   @ViewChildren('fixedColumnHeaderRef')
   fixedColumnHeaderRef: QueryList<ElementRef>;
   @ViewChild('tableRef') tableRef: ElementRef;
+  @ViewChild('wrapperRef') wrapperRef: ElementRef;
   @ViewChild('fixedHeaderInnerRef') fixedHeaderInnerRef: ElementRef;
   @ViewChild('ngxFixedScrollbar') ngxFixedScrollbar: NgxFixedScrollbarComponent;
   @ViewChild('selectAllWrapperRef') selectAllWrapperRef: ElementRef;
@@ -130,17 +131,18 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
   @HostListener('document:scroll', ['$event'])
   public onWindowScroll(event: any) {
     if (!this.tableRef) return;
-    const tableElement = this.tableRef.nativeElement as HTMLTableElement;
+    // use wrapper's offsetTop because it's an relative element (position: relative)
+    // table's offsetTop will be zero in this case because it's relative to wrapper element
+    const wrapperElement = this.wrapperRef.nativeElement as HTMLTableElement;
     // scrollbar wrapper
     const contentBottomEdge =
-      tableElement.offsetTop + tableElement.offsetHeight;
-    const tableRect = tableElement.getBoundingClientRect();
+      wrapperElement.offsetTop + wrapperElement.offsetHeight;
+    const tableRect = wrapperElement.getBoundingClientRect();
     const viewPortBottomEgde = window.scrollY + window.innerHeight;
     // stop fixed header
     this.stopFixedHeader();
     // case 1: viewport's top edge is scrolled over element's top edge
     // case 2: viewport's bottom edge touched element's bottom edge
-    console.log(tableElement, window.scrollY, contentBottomEdge);
     if (tableRect.y <= 0 && window.scrollY < contentBottomEdge) {
       this.startFixedHeader();
     }

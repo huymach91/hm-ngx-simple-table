@@ -90,7 +90,7 @@
       </div>
     </div>
   </div>
-  <div class="wrapper">
+  <div class="wrapper" #wrapperRef>
     <div class="scroller" #scrollerRef [ngStyle]="scrollerStyle">
       <ngx-fixed-scrollbar #ngxFixedScrollbar (onScroll)="onScrollX($event)">
         <ng-container content>
