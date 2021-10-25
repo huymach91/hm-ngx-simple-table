@@ -288,7 +288,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     selectAllWrapper.setAttribute('class', show ? 'fixed-bottom-center' : '');
   }
 
-  private diff = 3;
+  private diff = 5;
 
   public fitSizeFixedHeader() {
     const contentWidth =
@@ -357,7 +357,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
   public onScrollX(scrollLeft: number) {
     const fixedHeaderWrapper = this.fixedHeaderWrapperRef
       .nativeElement as HTMLDivElement;
-    fixedHeaderWrapper.scrollLeft = scrollLeft - this.diff;
+    fixedHeaderWrapper.scrollLeft = scrollLeft;
   }
 
   public emitChangeTableChecked() {
