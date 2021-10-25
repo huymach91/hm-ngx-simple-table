@@ -114,7 +114,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:resize', ['$event'])
   public onWindowResize(event: any) {
-    console.log('asdasd');
+    this.fitFixedCells();
   }
 
   @HostListener('document:click', ['$event'])
