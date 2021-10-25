@@ -7,7 +7,9 @@ import {
   Input,
   OnInit,
   Output,
+  QueryList,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 
 @Component({
@@ -38,6 +40,7 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
 
   @HostListener('document:scroll', [])
   public onWindowScroll() {
+    this.updateScrollBarWidth();
     // scrollbar wrapper
     const contentTopEdge = this.content.offsetTop;
     const contentBottomEdge = contentTopEdge + this.content.offsetHeight;

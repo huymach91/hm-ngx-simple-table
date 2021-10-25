@@ -296,7 +296,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     const tableElement = this.tableRef.nativeElement as HTMLDivElement;
     const fixedHeaderInner = this.fixedHeaderInnerRef
       .nativeElement as HTMLDivElement;
-    const diff = 7;
+    const diff = 8;
 
     fixedHeaderInner.style.setProperty(
       'width',
@@ -307,6 +307,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
       'left',
       tableElement.offsetLeft + diff + 'px'
     );
+    console.log(tableElement.offsetLeft + diff);
     const columnElements = this.columnRef.map((c) => c.nativeElement);
     columnElements.forEach((columnElement: HTMLElement, index: number) => {
       const columnComputedStyle = window.getComputedStyle(columnElement);
