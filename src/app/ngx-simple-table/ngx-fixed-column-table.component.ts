@@ -303,8 +303,6 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
 
     const diff = firstRightCell.offsetLeft - tableElement.offsetLeft + 1;
 
-    console.log(firstRightCell.offsetLeft, tableElement.offsetLeft);
-
     fixedHeaderInner.style.setProperty(
       'width',
       tableElement.offsetWidth + 'px'

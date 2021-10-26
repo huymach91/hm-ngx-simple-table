@@ -19,12 +19,10 @@ export class DemoFixedColumnTableComponent implements OnInit {
       {
         prop: 'id',
         title: 'ID',
-        fixed: true,
       },
       {
         prop: 'name',
         title: 'Name',
-        fixed: true,
       },
       {
         prop: 'age',
