@@ -167,7 +167,7 @@
                 (change)="
                   onCheckItem({
                     id: item.id,
-                    checked: $event.target['checked']
+                    checked: $event?.target['checked']
                   })
                 "
                 [checked]="isItemChecked(item.id)"

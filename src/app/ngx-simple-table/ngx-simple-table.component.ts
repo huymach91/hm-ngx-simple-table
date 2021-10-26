@@ -80,7 +80,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
   };
   public SORT_PARAM = SORT_PARAM;
 
-  public hideColumns = {};
+  public hideColumns: any = {};
 
   @ViewChildren('columnRef') columnRef: QueryList<ElementRef>;
   @ViewChild('fixedHeaderWrapperRef') fixedHeaderWrapperRef: ElementRef;
@@ -144,7 +144,7 @@ export class NgxSimpleTableComponent implements AfterViewInit {
     });
   }
 
-  public onCheckItem(data: { id: any; checked: boolean }): void {
+  public onCheckItem(data: { id: any; checked: any }): void {
     if (this.isAllItemsChecked) {
       this.pushToItemsRemoved(data);
     } else {
