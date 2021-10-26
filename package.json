@@ -1,7 +1,8 @@
 {
   "name": "angular",
-  "version": "1.0.1",
-  "private": true,
+  "version": "1.2.4",
+  "author": "huy mach <huy.mach.webdev@gmail.com>",
+  "private": false,
   "dependencies": {
     "@angular/animations": "^12.2.5",
     "@angular/common": "^12.2.5",
