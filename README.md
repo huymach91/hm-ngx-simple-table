@@ -17,6 +17,7 @@ The table has basic features as below:
 - fixed header
 - fixed scrollbar
 - resizable columns
+- fixed column
 
 ## Screenshots
 
