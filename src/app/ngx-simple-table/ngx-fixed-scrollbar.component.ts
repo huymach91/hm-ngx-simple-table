@@ -91,7 +91,9 @@ export class NgxFixedScrollbarComponent implements OnInit, AfterViewInit {
 
   private startFixed() {
     // content
-    const contentOffsetLeft = this.content.offsetLeft;
+    const contentRect = this.content.getBoundingClientRect();
+    // const contentOffsetLeft = this.content.offsetLeft;
+    const contentOffsetLeft = contentRect.left;
     this.scrollbarWrapper.style.setProperty('position', 'fixed');
     this.scrollbarWrapper.style.setProperty('left', contentOffsetLeft + 'px');
     this.scrollbarWrapper.style.setProperty('bottom', '0');

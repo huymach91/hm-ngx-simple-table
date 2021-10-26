@@ -322,9 +322,11 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
       const fixedHeaderColumn =
         fixedHeaderColumnRef.nativeElement as HTMLDivElement;
       const rect = columnElement.getBoundingClientRect();
-      const width = rect.width.toFixed(2);
-      const height = rect.height.toFixed(2);
-      fixedHeaderColumn.style.setProperty('width', width + 'px');
+      const width = +rect.width.toFixed(2);
+      const height = +rect.height.toFixed(2);
+      const padding = +columnComputedStyle.padding.replace(/em|rem|px/, '');
+
+      fixedHeaderColumn.style.setProperty('width', width - padding + 'px');
       fixedHeaderColumn.style.setProperty('height', height + 'px');
       fixedHeaderColumn.style.setProperty(
         'border-left',
