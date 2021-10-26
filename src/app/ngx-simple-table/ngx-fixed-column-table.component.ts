@@ -298,6 +298,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     const fixedHeaderInner = this.fixedHeaderInnerRef
       .nativeElement as HTMLDivElement;
     const tableRect = tableElement.getBoundingClientRect();
+    let left = tableRect.left;
 
     fixedHeaderInner.style.setProperty(
       'width',
@@ -311,8 +312,10 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         '.first-right-cell'
       ) as HTMLElement;
       const rectF = firstRightCell.getBoundingClientRect();
-      fixedHeaderWrapper.style.setProperty('left', rectF.left + 'px');
+      left = rectF.left;
     }
+
+    fixedHeaderWrapper.style.setProperty('left', left.toFixed(0) + 'px');
     fixedHeaderWrapper.style.setProperty('width', contentWidth + 'px');
 
     const columnElements = this.columnRef.map((c) => c.nativeElement);
@@ -474,7 +477,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
           .map((columnRef: ElementRef, index: number, self) => {
             const column = columnRef.nativeElement as HTMLDivElement;
             const rect = column.getBoundingClientRect();
-            return +rect.width.toFixed(2);
+            return +rect.width.toFixed(0);
           })
           .reduce((acc: number, cur: number) => acc + cur, 0);
         // calculate scroller's style
