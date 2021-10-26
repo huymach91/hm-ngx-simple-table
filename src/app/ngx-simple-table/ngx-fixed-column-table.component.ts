@@ -435,7 +435,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
               height: number;
             };
             const width = rect.width + 'px';
-            const height = rect.height + 'px';
+            // const height = rect.height + 'px';
             column.style.setProperty('width', width); // same width with th
             // column.style.setProperty('height', height); // same width with th
             column.style.setProperty('overflow', 'hidden');
@@ -462,12 +462,15 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         ) + 'px';
       this.scrollerStyle.width =
         'calc(100% - ' + this.scrollerStyle.marginLeft + ')';
-      // fixed column's position
+      // thead fixed column's position
       columns.forEach((columnRef: ElementRef, index: number, self) => {
         const column = columnRef.nativeElement as HTMLDivElement;
         let totalWidth = 0;
         for (let i = 0; i < index; i++) {
-          totalWidth += +maxSizeRects[i].width;
+          const rect = (
+            columns[i].nativeElement as HTMLElement
+          ).getBoundingClientRect();
+          totalWidth += +rect.width.toFixed(2);
         }
         const left = index === 0 ? 0 : totalWidth;
         column.classList.add('bg-whitesmoke');
