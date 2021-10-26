@@ -1,37 +1,39 @@
-<h3>Ngx Simple Table</h3>
-<div>
-  The table has basic features as below: <br />
-  <ul>
-    <li>pagination (from backend)</li>
-    <li>check item</li>
-    <li>check all items in a page</li>
-    <li>check all items in all pages</li>
-    <li>fixed header</li>
-    <li>fixed scrollbar</li>
-    <li>resizable columns</li>
-  </ul>
+<div class="p-5">
+  <h3>Ngx Simple Table</h3>
+  <div>
+    The table has basic features as below: <br />
+    <ul>
+      <li>pagination (from backend)</li>
+      <li>check item</li>
+      <li>check all items in a page</li>
+      <li>check all items in all pages</li>
+      <li>fixed header</li>
+      <li>fixed scrollbar</li>
+      <li>resizable columns</li>
+    </ul>
+  </div>
+  <hr />
+  <h4>Bootstrap 4 - Basic Usage</h4>
+  <ngx-simple-table
+    [config]="simpleTableConfig"
+    [data]="data"
+    [icons]="icons"
+    [totalRecord]="pagination.totalRecord"
+    [currentPage]="pagination.currentPage"
+    [pageSize]="pagination.pageSize"
+    (onChecked)="onChecked($event)"
+    (onSort)="onSort($event)"
+    (onChangePaginator)="onChangePaginator($event)"
+  >
+  </ngx-simple-table>
+  <div>
+    model:
+    <pre>{{ tableChecked | json }}</pre>
+  </div>
+  <div>
+    sort:
+    <pre>{{ sort | json }}</pre>
+  </div>
+  <br />
+  <demo-fixed-column-table></demo-fixed-column-table>
 </div>
-<hr />
-<h4>Bootstrap 4 - Basic Usage</h4>
-<ngx-simple-table
-  [config]="simpleTableConfig"
-  [data]="data"
-  [icons]="icons"
-  [totalRecord]="pagination.totalRecord"
-  [currentPage]="pagination.currentPage"
-  [pageSize]="pagination.pageSize"
-  (onChecked)="onChecked($event)"
-  (onSort)="onSort($event)"
-  (onChangePaginator)="onChangePaginator($event)"
->
-</ngx-simple-table>
-<div>
-  model:
-  <pre>{{ tableChecked | json }}</pre>
-</div>
-<div>
-  sort:
-  <pre>{{ sort | json }}</pre>
-</div>
-<br />
-<demo-fixed-column-table></demo-fixed-column-table>

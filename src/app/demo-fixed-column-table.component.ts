@@ -19,7 +19,6 @@ export class DemoFixedColumnTableComponent implements OnInit {
       {
         prop: 'id',
         title: 'ID',
-        fixed: true,
       },
       {
         prop: 'name',

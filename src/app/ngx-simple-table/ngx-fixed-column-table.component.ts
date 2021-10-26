@@ -297,7 +297,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     const tableElement = this.tableRef.nativeElement as HTMLDivElement;
     const fixedHeaderInner = this.fixedHeaderInnerRef
       .nativeElement as HTMLDivElement;
-
+    const tableRect = tableElement.getBoundingClientRect();
     let diff = 0;
 
     fixedHeaderInner.style.setProperty(
@@ -305,20 +305,15 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
       tableElement.offsetWidth + 'px'
     );
     // 2px of this padding due to the table has 2px on the left when moving fixed columns to left side, this create an extra 2px scrollLeft;
-    fixedHeaderWrapper.style.setProperty(
-      'left',
-      tableElement.offsetLeft + 'px'
-    );
+    fixedHeaderWrapper.style.setProperty('left', tableRect.left + 'px');
 
     if (this.fixedColumns.length) {
       const firstRightCell = tableElement.querySelector(
         '.first-right-cell'
       ) as HTMLElement;
+      const rectF = firstRightCell.getBoundingClientRect();
       diff = firstRightCell.offsetLeft - tableElement.offsetLeft + 1;
-      fixedHeaderWrapper.style.setProperty(
-        'left',
-        firstRightCell.offsetLeft + 'px'
-      );
+      fixedHeaderWrapper.style.setProperty('left', rectF.left + 'px');
     }
     fixedHeaderWrapper.style.setProperty('width', contentWidth - diff + 'px');
 
