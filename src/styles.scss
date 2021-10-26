@@ -1,12 +1,6 @@
 /* Add application styles & imports to this file! */
-// @import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap/scss/bootstrap';
 // @import '~bootstrap-icons/font/bootstrap-icons.css';
-
 body {
-  padding: 0;
-}
-
-table tr th,
-table tr th {
-  padding: 0 !important;
+  padding: 10px;
 }
