@@ -298,7 +298,6 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
     const fixedHeaderInner = this.fixedHeaderInnerRef
       .nativeElement as HTMLDivElement;
     const tableRect = tableElement.getBoundingClientRect();
-    let diff = 0;
 
     fixedHeaderInner.style.setProperty(
       'width',
@@ -312,10 +311,9 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         '.first-right-cell'
       ) as HTMLElement;
       const rectF = firstRightCell.getBoundingClientRect();
-      diff = firstRightCell.offsetLeft - tableElement.offsetLeft + 1;
       fixedHeaderWrapper.style.setProperty('left', rectF.left + 'px');
     }
-    fixedHeaderWrapper.style.setProperty('width', contentWidth - diff + 'px');
+    fixedHeaderWrapper.style.setProperty('width', contentWidth + 'px');
 
     const columnElements = this.columnRef.map((c) => c.nativeElement);
     columnElements.forEach((columnElement: HTMLElement, index: number) => {
@@ -451,17 +449,6 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
           });
         });
       });
-      // calculate scroller's style
-      this.scrollerStyle.marginLeft =
-        Math.round(
-          maxSizeRects
-            .map((size) => size.width)
-            .reduce((acc: number, cur) => {
-              return acc + cur;
-            }, 0)
-        ) + 'px';
-      this.scrollerStyle.width =
-        'calc(100% - ' + this.scrollerStyle.marginLeft + ')';
       // thead fixed column's position
       columns.forEach((columnRef: ElementRef, index: number, self) => {
         const column = columnRef.nativeElement as HTMLDivElement;
@@ -477,6 +464,21 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         column.style.setProperty('left', left + 'px');
         column.style.setProperty('width', maxSizeRects[index].width + 'px');
         // column.style.setProperty('height', maxSizeRects[index].height + 'px');
+      });
+
+      // re-calc margin left of the table
+      setTimeout(() => {
+        const marginLeft = columns
+          .map((columnRef: ElementRef, index: number, self) => {
+            const column = columnRef.nativeElement as HTMLDivElement;
+            const rect = column.getBoundingClientRect();
+            return +rect.width.toFixed(2);
+          })
+          .reduce((acc: number, cur: number) => acc + cur, 0);
+        // calculate scroller's style
+        this.scrollerStyle.marginLeft = marginLeft + 'px';
+        this.scrollerStyle.width =
+          'calc(100% - ' + this.scrollerStyle.marginLeft + ')';
       });
     });
   }
