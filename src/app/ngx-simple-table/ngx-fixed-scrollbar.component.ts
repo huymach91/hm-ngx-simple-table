@@ -7,9 +7,7 @@ import {
   Input,
   OnInit,
   Output,
-  QueryList,
   ViewChild,
-  ViewChildren,
 } from '@angular/core';
 
 @Component({
