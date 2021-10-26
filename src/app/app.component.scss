@@ -8,9 +8,6 @@ ul {
   margin-top: 10px;
 }
 
-::ng-deep {
-  .table th,
-  .table td {
-    padding: 0.2em !important;
-  }
+.p-10 {
+  padding: 20px;
 }
