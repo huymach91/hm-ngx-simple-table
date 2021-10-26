@@ -327,7 +327,6 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
       const rect = columnElement.getBoundingClientRect();
       const width = +rect.width.toFixed(2);
       const height = +rect.height.toFixed(2);
-      const padding = +columnComputedStyle.padding.replace(/em|rem|px/, '');
 
       fixedHeaderColumn.style.setProperty('width', width + 'px');
       fixedHeaderColumn.style.setProperty('height', height + 'px');
