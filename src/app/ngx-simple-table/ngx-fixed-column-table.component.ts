@@ -301,7 +301,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
       '.first-right-cell'
     ) as HTMLElement;
 
-    const diff = firstRightCell.offsetLeft - tableElement.offsetLeft;
+    const diff = firstRightCell.offsetLeft - tableElement.offsetLeft + 1;
 
     console.log(firstRightCell.offsetLeft, tableElement.offsetLeft);
 
