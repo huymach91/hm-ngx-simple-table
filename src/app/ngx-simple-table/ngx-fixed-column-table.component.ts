@@ -400,7 +400,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
       });
       // find max width, height of fixed cells
       let maxSizeRects: Array<{ width: number; height: number }> = [];
-      columns.forEach((column, i) => {
+      columns.forEach((column: any, i: number) => {
         const bodyFixedCells = (
           this.tableRef.nativeElement as HTMLTableElement
         ).querySelectorAll('.fixed-column-' + i);
