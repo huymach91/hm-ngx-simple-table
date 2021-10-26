@@ -96,6 +96,11 @@ export class NgxSimpleTableComponent implements AfterViewInit {
 
   ngAfterViewInit() {}
 
+  @HostListener('window:resize', ['$event'])
+  public onWindowResize(event: any) {
+    this.fitSizeFixedHeader();
+  }
+
   @HostListener('document:click', ['$event'])
   public onDocumentClick(event: any) {
     const columnSelector = this.columnSelectorRef
