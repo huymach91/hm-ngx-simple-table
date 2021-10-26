@@ -13,13 +13,13 @@ import {
 export class ResizableColumnDirective implements AfterViewInit {
   private table: HTMLTableElement;
   private columns: NodeList;
-  private currentResizer: HTMLDivElement;
-  private currentCell: HTMLTableCellElement;
-  private currentCellWidth: number;
-  private currentPageX: number;
-  private siblingCell: HTMLTableCellElement;
-  private siblingCellWidth: number;
-  private isMouseDown: boolean;
+  private currentResizer: HTMLDivElement | any;
+  private currentCell: HTMLTableCellElement | any;
+  private currentCellWidth: number | any;
+  private currentPageX: number | any;
+  private siblingCell: HTMLTableCellElement | any;
+  private siblingCellWidth: number | any;
+  private isMouseDown: boolean | any;
 
   @Output('onChange') onChange = new EventEmitter();
 

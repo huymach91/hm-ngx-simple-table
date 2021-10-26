@@ -423,7 +423,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
           const columns = (row.nativeElement as HTMLElement).querySelectorAll(
             '.fixed-column'
           );
-          columns.forEach((column: HTMLElement, index: number, self) => {
+          columns.forEach((column: any, index: any, self) => {
             const rect = maxSizeRects[index] as {
               width: number;
               height: number;
