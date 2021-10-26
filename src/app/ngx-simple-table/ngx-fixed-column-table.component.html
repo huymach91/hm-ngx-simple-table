@@ -43,7 +43,11 @@
   </pages>
   <div class="fixed-header-wrapper" #fixedHeaderWrapperRef>
     <div class="fixed-header-inner bg-whitesmoke" #fixedHeaderInnerRef>
-      <div class="chb text-center" #fixedColumnHeaderRef [hidden]="true">
+      <div
+        class="chb text-center"
+        #fixedColumnHeaderRef
+        [hidden]="fixedColumns.length"
+      >
         <input
           class="check-all-item"
           type="checkbox"
@@ -103,7 +107,13 @@
           >
             <thead *ngIf="config.columns.length">
               <tr class="bg-whitesmoke">
-                <th #columnRef class="text-center fixed-column fixed-column-0">
+                <th
+                  #columnRef
+                  class="text-center"
+                  [ngClass]="{
+                    'fixed-column fixed-column-0': fixedColumns.length
+                  }"
+                >
                   <input
                     class="check-all-item"
                     type="checkbox"
@@ -170,7 +180,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of data" #rowRef>
-                <td class="checkbox-column fixed-column fixed-column-0">
+                <td
+                  class="checkbox-column"
+                  [ngClass]="{
+                    'fixed-column fixed-column-0': fixedColumns.length
+                  }"
+                >
                   <input
                     class="check-item"
                     type="checkbox"
