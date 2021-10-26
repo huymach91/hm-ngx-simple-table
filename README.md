@@ -23,6 +23,8 @@ The table has basic features as below:
 
 ![App Screenshot](https://raw.githubusercontent.com/huymach91/hm-ngx-simple-table/master/src/assets/ngx-simple-table.png?token=AHXRERMF7N6U4HSCDK5WX43BN7FHU)
 
+![App Screenshot](https://raw.githubusercontent.com/huymach91/hm-ngx-simple-table/master/src/assets/ngx-sticky-column.png)
+
 ## Browser Support
 
 Latest Chrome.
