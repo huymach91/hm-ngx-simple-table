@@ -431,7 +431,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
             const width = rect.width + 'px';
             const height = rect.height + 'px';
             column.style.setProperty('width', width); // same width with th
-            column.style.setProperty('height', height); // same width with th
+            // column.style.setProperty('height', height); // same width with th
             column.style.setProperty('overflow', 'hidden');
             column.style.setProperty('whitespace', 'nowrap');
             column.style.setProperty('text-overflow', 'ellipsis');
@@ -467,7 +467,7 @@ export class NgxFixedColumnTableComponent implements OnInit, AfterViewInit {
         column.classList.add('bg-whitesmoke');
         column.style.setProperty('left', left + 'px');
         column.style.setProperty('width', maxSizeRects[index].width + 'px');
-        column.style.setProperty('height', maxSizeRects[index].height + 'px');
+        // column.style.setProperty('height', maxSizeRects[index].height + 'px');
       });
     });
   }
