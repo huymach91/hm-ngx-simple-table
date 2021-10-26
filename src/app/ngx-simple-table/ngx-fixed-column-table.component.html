@@ -114,7 +114,13 @@
                 <th
                   #columnRef
                   *ngFor="let column of config.columns; let i = index"
-                  [ngClass]="{ 'fixed-column': column?.fixed }"
+                  [ngClass]="{
+                    'fixed-column': column?.fixed,
+                    'first-right-cell':
+                      i > 0 &&
+                      !config.columns[i]['fixed'] &&
+                      config.columns[i - 1]['fixed']
+                  }"
                   class="{{ column?.fixed ? 'fixed-column-' + (i + 1) : '' }}"
                   [hidden]="hideColumns[column.prop]"
                 >
