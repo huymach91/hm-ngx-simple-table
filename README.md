@@ -1,6 +1,6 @@
 # ngx-simple-table
 
-Angular version 12.1.0
+Angular version 12.1.0. [Stackblitz](https://www.buymeacoffee.com/huymax)
 
 ## Demo
 
