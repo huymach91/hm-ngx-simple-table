@@ -1,8 +1,12 @@
 {
-  "name": "angular",
-  "version": "1.2.7",
+  "name": "ngx-simple-table",
+  "version": "1.3.1",
   "author": "huy mach <huy.mach.webdev@gmail.com>",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/huymach91/hm-ngx-simple-table"
+  },
   "dependencies": {
     "@angular/animations": "^12.2.5",
     "@angular/common": "^12.2.5",
